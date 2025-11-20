@@ -1,0 +1,43 @@
+@startuml
+title Comparison: Client-Server vs Decentralized DFS Architectures
+
+actor ClientA
+actor ClientB
+
+package "Client-Server DFS" {
+  rectangle "Metadata Server" as MetaServerCS
+  rectangle "Storage Node 1" as Storage1CS
+  rectangle "Storage Node 2" as Storage2CS
+
+  ClientA --> MetaServerCS : Request metadata
+  ClientB --> MetaServerCS : Request metadata
+
+  MetaServerCS --> Storage1CS : Manage file locations
+  MetaServerCS --> Storage2CS
+
+  ClientA --> Storage1CS : Read/Write data
+  ClientB --> Storage2CS : Read/Write data
+
+  note right of MetaServerCS
+    Centralized metadata management
+  end note
+}
+
+package "Decentralized DFS" {
+  rectangle "Node 1\n(metadata + storage)" as Node1D
+  rectangle "Node 2\n(metadata + storage)" as Node2D
+  rectangle "Node 3\n(metadata + storage)" as Node3D
+
+  ClientA --> Node1D : Metadata & data requests
+  ClientB --> Node3D : Metadata & data requests
+
+  Node1D <--> Node2D : Metadata sync & replication
+  Node2D <--> Node3D
+  Node3D <--> Node1D
+
+  note right of Node1D
+    Distributed metadata and storage
+  end note
+}
+
+@enduml

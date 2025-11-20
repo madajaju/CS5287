@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+
+package "Data Set" {
+  rectangle "Table" as original_data
+}
+
+package "Horizontal Partitioning (Sharding)" #ffffaa {
+  rectangle "Partition 1\n(e.g. Users 1-1000)" as h_part1
+  rectangle "Partition 2\n(e.g. Users 1001-2000)" as h_part2
+  rectangle "Partition 3\n(e.g. Users 2001-3000)" as h_part3
+}
+
+package "Vertical Partitioning" #aaffff {
+  rectangle "Partition A\n(e.g. User ID, Name)" as v_partA
+  rectangle "Partition B\n(e.g. Address, Phone)" as v_partB
+  rectangle "Partition C\n(e.g. Preferences, Settings)" as v_partC
+}
+
+package "Directory-Based Partitioning" #aaffaa{
+  rectangle "Directory Service\n(Key → Partition Mapping)" as directory
+  rectangle "Partition X" as d_partX
+  rectangle "Partition Y" as d_partY
+  rectangle "Partition Z" as d_partZ
+}
+
+original_data --> h_part1 : rows 1-1000
+original_data --> h_part2 : rows 1001-2000
+original_data --> h_part3 : rows 2001-3000
+
+original_data --> v_partA : columns userID, name
+original_data --> v_partB : columns address, phone
+original_data --> v_partC : columns preferences, settings
+
+directory --> d_partX
+directory --> d_partY
+directory --> d_partZ
+
+@enduml

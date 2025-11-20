@@ -1,0 +1,43 @@
+@startuml
+
+actor User
+
+package "Multi-Hybrid Cloud Environment" {
+
+  rectangle "Partitioned Service - US East" as PartitionUSEast {
+    [Instance 1] as USE1
+    [Instance 2] as USE2
+    [Instance N] as USEN
+    cloud "Autoscaler" as AutoscalerUSEast
+  }
+
+  rectangle "Partitioned Service - Europe West" as PartitionEUWest {
+    [Instance 1] as EUW1
+    [Instance 2] as EUW2
+    cloud "Autoscaler" as AutoscalerEUWest
+  }
+
+  rectangle "Partitioned Service - Asia South" as PartitionAsiaSouth {
+    [Instance 1] as AS1
+    cloud "Autoscaler" as AutoscalerAsiaSouth
+  }
+}
+
+User --> PartitionUSEast : Requests routed based on\npartition key (e.g. region)
+User --> PartitionEUWest
+User --> PartitionAsiaSouth
+
+PartitionUSEast --> AutoscalerUSEast : Metrics (CPU, Request Rate, etc)
+PartitionEUWest --> AutoscalerEUWest
+PartitionAsiaSouth --> AutoscalerAsiaSouth
+
+AutoscalerUSEast --> USE1 : Scale Up/Down
+AutoscalerUSEast --> USE2
+AutoscalerUSEast --> USEN
+
+AutoscalerEUWest --> EUW1 : Scale Up/Down
+AutoscalerEUWest --> EUW2
+
+AutoscalerAsiaSouth --> AS1 : Scale Up/Down
+
+@enduml

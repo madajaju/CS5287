@@ -1,0 +1,1346 @@
+﻿1
+00:00:01,649 --> 00:00:04,949
+In this lecture we're going
+to talk about data partitioning in multi
+
+2
+00:00:04,982 --> 00:00:07,985
+hybrid cloud architectures.
+
+3
+00:00:08,975 --> 00:00:11,945
+Why first off
+why do we look at data partitioning
+
+4
+00:00:12,011 --> 00:00:14,948
+and why it matters in multi hybrid
+cloud data.
+
+5
+00:00:14,948 --> 00:00:19,205
+The mentioned data is cold data
+is the new oil whatever the case may be.
+
+6
+00:00:19,733 --> 00:00:23,957
+Data costs money
+especially when you start dealing
+
+7
+00:00:23,957 --> 00:00:27,488
+with public cloud
+and specifically around egress costs.
+
+8
+00:00:27,851 --> 00:00:32,141
+So just throwing everything up
+into a big cloud or having everything
+
+9
+00:00:32,141 --> 00:00:36,167
+moved from the edge into
+the cloud is not necessarily reasonable.
+
+10
+00:00:36,167 --> 00:00:39,929
+In a lot of new edge architectures,
+especially as the edge
+
+11
+00:00:39,929 --> 00:00:41,645
+becomes more and more capable.
+
+12
+00:00:41,645 --> 00:00:45,275
+So you've got to come up with a strategy
+on what you're going to do with your data.
+
+13
+00:00:45,902 --> 00:00:49,499
+This also increases
+not just the scalability, but fault
+
+14
+00:00:49,499 --> 00:00:54,053
+tolerance and resilience
+as, clouds, as we've learned, recently,
+
+15
+00:00:54,482 --> 00:00:57,485
+the public clouds are not 100%
+bulletproof.
+
+16
+00:00:57,815 --> 00:01:00,125
+They do go down
+and you want your whole business
+
+17
+00:01:00,125 --> 00:01:02,633
+going down
+because cloud service has gone down.
+
+18
+00:01:02,633 --> 00:01:04,514
+So you need fault tolerance.
+
+19
+00:01:04,514 --> 00:01:07,979
+There might be regulatory and compliance
+and data sovereignty issues.
+
+20
+00:01:08,243 --> 00:01:11,411
+And you also want to find out the
+the most cost
+
+21
+00:01:11,411 --> 00:01:14,744
+effective way
+of utilizing of these resources.
+
+22
+00:01:14,744 --> 00:01:17,153
+So partitioning is a way to do this.
+
+23
+00:01:17,153 --> 00:01:20,189
+It means you may have multiple
+copies of the same data.
+
+24
+00:01:21,443 --> 00:01:22,532
+But that's okay.
+
+25
+00:01:22,532 --> 00:01:25,601
+It turns out it's,
+it turns out to be cheaper
+
+26
+00:01:25,601 --> 00:01:28,604
+and, builds up
+some of that resilience that you need.
+
+27
+00:01:29,594 --> 00:01:31,475
+Okay. So what is partitioning?
+
+28
+00:01:31,475 --> 00:01:32,663
+It's really simple.
+
+29
+00:01:32,663 --> 00:01:36,161
+I take really large data
+sets or groups of data sets.
+
+30
+00:01:36,161 --> 00:01:41,342
+And I, shard them
+or break them into partitions
+
+31
+00:01:41,540 --> 00:01:45,335
+that are managed independently
+of each other instead of manages
+
+32
+00:01:45,335 --> 00:01:48,437
+one big pool by the benefit of this.
+
+33
+00:01:48,668 --> 00:01:51,605
+Most of this benefit came out of, grid
+
+34
+00:01:51,605 --> 00:01:54,674
+computing in the early 2000.
+
+35
+00:01:54,971 --> 00:01:59,822
+Where you take big, huge data sets,
+you break them up into smaller segments,
+
+36
+00:01:59,822 --> 00:02:03,947
+and then you distribute those across
+a thousand nodes or 10,000 nodes,
+
+37
+00:02:04,178 --> 00:02:06,983
+and you can massively parallel,
+process these things.
+
+38
+00:02:06,983 --> 00:02:09,029
+That's where the concepts came from.
+
+39
+00:02:09,029 --> 00:02:11,834
+But we see some benefits in cloud
+computing itself.
+
+40
+00:02:11,834 --> 00:02:17,543
+So taking data, breaking it up
+and then working on the individual pieces
+
+41
+00:02:17,543 --> 00:02:20,678
+independently and then bringing the
+data back together as needed.
+
+42
+00:02:22,691 --> 00:02:23,318
+Okay.
+
+43
+00:02:23,318 --> 00:02:24,869
+There's 2 or 3.
+
+44
+00:02:24,869 --> 00:02:28,697
+There's but these are
+the main, strategies out there.
+
+45
+00:02:28,994 --> 00:02:32,195
+Horizontal partitioning,
+also known as sharding.
+
+46
+00:02:32,459 --> 00:02:34,010
+This is where I split data.
+
+47
+00:02:34,010 --> 00:02:37,112
+If I were to do like rows and columns,
+it'd be like,
+
+48
+00:02:37,112 --> 00:02:40,115
+splitting data by rows.
+
+49
+00:02:40,181 --> 00:02:44,108
+So I've got the whole data set,
+but I've only got,
+
+50
+00:02:44,108 --> 00:02:47,276
+I've got all the fields for the data,
+but only one record
+
+51
+00:02:47,540 --> 00:02:49,289
+that I'm going to process.
+
+52
+00:02:49,289 --> 00:02:51,302
+Now that's a pretty common
+way of doing things.
+
+53
+00:02:51,302 --> 00:02:52,787
+Pretty easy to do.
+
+54
+00:02:52,787 --> 00:02:57,341
+There's lots of ways to do horizontal
+partitioning by region, customer
+
+55
+00:02:57,341 --> 00:03:00,806
+ID there's a whole bunch of different
+things that you can do in that way.
+
+56
+00:03:01,202 --> 00:03:02,852
+Vertical partitioning.
+
+57
+00:03:02,852 --> 00:03:06,515
+This is where I divide
+things up by the fields themselves.
+
+58
+00:03:06,977 --> 00:03:11,564
+And there are some use cases
+that this becomes actually very powerful
+
+59
+00:03:11,927 --> 00:03:16,448
+if I'm processing a certain amount of data
+that is highly analytical.
+
+60
+00:03:17,834 --> 00:03:19,913
+And those fields are,
+
+61
+00:03:19,913 --> 00:03:23,642
+you know, numbers that I need to run data
+analytics on.
+
+62
+00:03:23,939 --> 00:03:25,160
+That would be a great thing
+
+63
+00:03:25,160 --> 00:03:28,328
+to group those together
+and put those in a vertical partition
+
+64
+00:03:28,889 --> 00:03:33,542
+with maybe only, only a reference number
+to the rest of the data.
+
+65
+00:03:33,806 --> 00:03:39,350
+That is in the other columns inside,
+your, your virtual, spreadsheet
+
+66
+00:03:39,350 --> 00:03:42,749
+that you have there or if you're using
+a database, same, same concept.
+
+67
+00:03:43,541 --> 00:03:46,511
+The last one is directory
+based partitioning.
+
+68
+00:03:46,511 --> 00:03:49,514
+This is great for file
+system, types of things.
+
+69
+00:03:49,514 --> 00:03:51,461
+And this gives you the ability
+to group things
+
+70
+00:03:51,461 --> 00:03:54,002
+any way that you want
+in these different directories.
+
+71
+00:03:54,002 --> 00:03:58,490
+And then the, 
+the directories, can become their own
+
+72
+00:03:58,490 --> 00:04:04,232
+partitions that I can distribute
+across, a vast, ecosystem of clouds
+
+73
+00:04:04,265 --> 00:04:08,852
+if I want different regions or private
+clouds, public clouds, or the edge.
+
+74
+00:04:09,677 --> 00:04:13,340
+So you've got to come up with a strategy,
+that you want to use.
+
+75
+00:04:13,340 --> 00:04:16,343
+These are just three main strategies
+that we see a lot.
+
+76
+00:04:16,805 --> 00:04:17,069
+Right.
+
+77
+00:04:17,069 --> 00:04:21,128
+But you may have something else
+that, you do, but writing down
+
+78
+00:04:21,128 --> 00:04:25,253
+what your partitioning strategy
+is is the most important thing
+
+79
+00:04:25,418 --> 00:04:27,530
+when you start building
+out your data strategies.
+
+80
+00:04:29,081 --> 00:04:29,444
+Okay.
+
+81
+00:04:29,444 --> 00:04:32,876
+So great
+example here you can see a directory
+
+82
+00:04:32,876 --> 00:04:35,186
+I've got several partitions here.
+
+83
+00:04:35,186 --> 00:04:39,674
+And then also if I've got a table
+horizontal and vertical partitioning work
+
+84
+00:04:39,674 --> 00:04:40,433
+really well.
+
+85
+00:04:40,433 --> 00:04:43,898
+Once you have a graph database I could do
+the same thing with the graph database.
+
+86
+00:04:43,898 --> 00:04:47,495
+And it if it's more like a directory
+service type of thing,
+
+87
+00:04:47,792 --> 00:04:51,851
+I can take the top of a graph and say,
+oh, that's its own partition.
+
+88
+00:04:51,851 --> 00:04:55,085
+I'm going to partition
+that off in a certain,
+
+89
+00:04:55,085 --> 00:04:58,154
+region or cloud or edge or whatever
+you want to do,
+
+90
+00:04:58,517 --> 00:05:01,850
+come up with your own strategy
+and then document it.
+
+91
+00:05:02,444 --> 00:05:03,104
+That's key.
+
+92
+00:05:03,104 --> 00:05:06,305
+Document what your strategy is
+so that you can follow it.
+
+93
+00:05:06,305 --> 00:05:07,460
+So you've got a guideline.
+
+94
+00:05:07,460 --> 00:05:10,430
+And then you can follow.
+
+95
+00:05:10,430 --> 00:05:10,793
+Okay.
+
+96
+00:05:10,793 --> 00:05:12,740
+Placement of data.
+
+97
+00:05:12,740 --> 00:05:14,687
+Now that you've figured out
+your partitions.
+
+98
+00:05:14,687 --> 00:05:17,756
+Now let's talk about
+where am I going to put these partitions.
+
+99
+00:05:18,251 --> 00:05:22,607
+Now you could replicate partitions
+to increase high availability.
+
+100
+00:05:22,838 --> 00:05:26,402
+But you need to come up with where
+am I going to distribute these partitions.
+
+101
+00:05:26,897 --> 00:05:27,854
+And remember
+
+102
+00:05:27,854 --> 00:05:32,737
+there's lots of different locations
+the edge private cloud, public cloud,
+
+103
+00:05:33,991 --> 00:05:34,816
+right
+
+104
+00:05:34,816 --> 00:05:37,357
+data centers, workstations, things like
+
+105
+00:05:37,357 --> 00:05:40,327
+you've got to determine
+where you're going to do them
+
+106
+00:05:40,327 --> 00:05:42,175
+and then look at where
+you're placing things.
+
+107
+00:05:42,175 --> 00:05:43,957
+There's key criteria
+that you should look at.
+
+108
+00:05:43,957 --> 00:05:46,564
+Latency,
+
+109
+00:05:46,564 --> 00:05:50,887
+compliance cost and your workload itself.
+
+110
+00:05:51,382 --> 00:05:51,976
+Right.
+
+111
+00:05:51,976 --> 00:05:55,276
+It does not make sense to partition
+
+112
+00:05:55,276 --> 00:05:58,279
+your data that needs like an I
+
+113
+00:05:58,444 --> 00:06:01,447
+and, maybe your training data,
+
+114
+00:06:01,579 --> 00:06:05,572
+and you're going to run that on an edge
+that doesn't have a GPU.
+
+115
+00:06:05,605 --> 00:06:07,618
+That just doesn't make sense, right?
+
+116
+00:06:07,618 --> 00:06:10,621
+If I'm doing training,
+but if I'm doing inference,
+
+117
+00:06:11,182 --> 00:06:15,307
+I then maybe I can put that on the edge,
+right?
+
+118
+00:06:15,307 --> 00:06:17,848
+That data can go out on the edge. Right.
+
+119
+00:06:17,848 --> 00:06:20,059
+Because I don't need a GPU
+for that sort of thing.
+
+120
+00:06:20,059 --> 00:06:23,392
+So understanding your workload,
+the resources
+
+121
+00:06:23,392 --> 00:06:26,593
+that are available
+in each of the locales is also important.
+
+122
+00:06:29,332 --> 00:06:29,662
+All right.
+
+123
+00:06:29,662 --> 00:06:32,665
+Some of the challenges
+now, we've seen this before,
+
+124
+00:06:32,863 --> 00:06:34,546
+and there's actually some really cool
+
+125
+00:06:34,546 --> 00:06:37,846
+architectures out there
+and some products that fit in this space
+
+126
+00:06:38,308 --> 00:06:41,707
+that handle a lot of the challenges
+of the multi hybrid cloud data
+
+127
+00:06:41,707 --> 00:06:46,129
+partitioning problem around latency or,
+
+128
+00:06:46,129 --> 00:06:50,089
+inter cloud bandwidth,
+balancing all this stuff.
+
+129
+00:06:50,221 --> 00:06:54,148
+There's some great architectures
+that you can look at that are out there.
+
+130
+00:06:54,148 --> 00:06:57,151
+Macromedia has a product out there.
+
+131
+00:06:57,184 --> 00:06:59,626
+Hammer space does something like this.
+
+132
+00:06:59,626 --> 00:07:02,167
+NetApp does stuff like this.
+So you can look at that.
+
+133
+00:07:02,167 --> 00:07:05,731
+That's at the real data
+and storage, tier.
+
+134
+00:07:05,962 --> 00:07:09,526
+If you want to make your stuff
+more intelligent, you can look at
+
+135
+00:07:09,526 --> 00:07:13,387
+your application stack more
+and make these, partitioning decisions,
+
+136
+00:07:13,684 --> 00:07:17,545
+which can overcome a lot of,
+the complexity that you have in there.
+
+137
+00:07:18,205 --> 00:07:23,089
+But realize that your data is now
+segregated, separated.
+
+138
+00:07:23,089 --> 00:07:24,739
+You created some silos. There.
+
+139
+00:07:24,739 --> 00:07:28,501
+You're going to have to understand
+if I'm, combining data
+
+140
+00:07:28,501 --> 00:07:30,019
+or moving data between things,
+
+141
+00:07:30,019 --> 00:07:33,022
+that's going to have a play here
+that you need to watch out for.
+
+142
+00:07:33,715 --> 00:07:37,840
+Also, make sure that you handle security
+between the partitions
+
+143
+00:07:38,038 --> 00:07:41,041
+if you have to move data
+between locations, or
+
+144
+00:07:41,041 --> 00:07:45,067
+if you're moving data between partitions,
+make sure that you've established
+
+145
+00:07:45,067 --> 00:07:49,027
+what your governance and trust
+boundaries are across those things.
+
+146
+00:07:51,832 --> 00:07:52,129
+All right.
+
+147
+00:07:52,129 --> 00:07:55,132
+Some of the best practices are align
+partition
+
+148
+00:07:55,198 --> 00:07:58,564
+partition keys
+to natural application usage.
+
+149
+00:07:58,927 --> 00:08:00,247
+This is a huge one.
+
+150
+00:08:00,247 --> 00:08:04,537
+And I see people make this mistake a lot
+where maybe they partition
+
+151
+00:08:04,537 --> 00:08:08,134
+their data based off of region,
+which is amount of you.
+
+152
+00:08:08,167 --> 00:08:12,292
+It sounds like a good idea,
+but if their applications,
+
+153
+00:08:12,292 --> 00:08:15,823
+if it requires all their applications
+to run in every single region,
+
+154
+00:08:16,384 --> 00:08:19,684
+how might not be necessarily
+the best way to go, especially
+
+155
+00:08:19,915 --> 00:08:22,918
+if all the data is not required
+in all the regions.
+
+156
+00:08:23,347 --> 00:08:23,908
+Right?
+
+157
+00:08:23,908 --> 00:08:25,294
+Or if
+
+158
+00:08:25,294 --> 00:08:28,363
+if all the applications aren't required
+for all the data in a region,
+
+159
+00:08:28,363 --> 00:08:29,518
+that just doesn't make sense.
+
+160
+00:08:29,518 --> 00:08:32,521
+So look at your application usage.
+
+161
+00:08:32,917 --> 00:08:35,755
+Look at your, legality.
+
+162
+00:08:35,755 --> 00:08:38,395
+Right? For, where can the data reside?
+
+163
+00:08:38,395 --> 00:08:39,946
+Those are important things.
+
+164
+00:08:39,946 --> 00:08:42,949
+Look at automating your routing
+and query management.
+
+165
+00:08:43,411 --> 00:08:45,952
+And this is where these tools
+come into play.
+
+166
+00:08:45,952 --> 00:08:48,790
+Or you can develop your own there right.
+
+167
+00:08:48,790 --> 00:08:52,189
+Make sure that you're leveraging
+any cloud native partitioning
+
+168
+00:08:52,189 --> 00:08:55,753
+and replication features
+that already exist so that you can
+
+169
+00:08:55,753 --> 00:08:58,756
+have that more high availability
+that you're looking for.
+
+170
+00:08:58,954 --> 00:09:03,376
+And as we've always talked about
+in all the lectures, observability
+
+171
+00:09:03,673 --> 00:09:07,402
+monitoring, these are like applications.
+
+172
+00:09:07,402 --> 00:09:07,699
+Right.
+
+173
+00:09:07,699 --> 00:09:10,933
+So you've got to monitor them,
+make sure you're not running out of space.
+
+174
+00:09:10,933 --> 00:09:13,045
+Make sure that you have connectivity,
+
+175
+00:09:13,045 --> 00:09:16,147
+so that you can keep your whole system up
+and running.
+
+176
+00:09:16,510 --> 00:09:17,566
+There's nothing worse
+
+177
+00:09:17,566 --> 00:09:20,569
+than, hey, all my machines are running,
+but my storage is down.
+
+178
+00:09:21,427 --> 00:09:24,727
+That's, that's a disaster
+waiting to happen, right?
+
+179
+00:09:25,189 --> 00:09:29,842
+So make sure that you tie
+these data partitions and where
+
+180
+00:09:29,842 --> 00:09:33,802
+they're located into your disaster
+recovery and backup plans.
+
+181
+00:09:34,033 --> 00:09:35,353
+Your partition backup plans.
+
+182
+00:09:38,125 --> 00:09:39,181
+Okay.
+
+183
+00:09:39,181 --> 00:09:40,072
+Observability.
+
+184
+00:09:40,072 --> 00:09:42,415
+Can't talk enough about it.
+
+185
+00:09:42,415 --> 00:09:47,563
+Make sure that you do have observability
+built in, and your logging is built in
+
+186
+00:09:47,563 --> 00:09:52,315
+on your partitions, so you can know what's
+going on on those partitions, how often
+
+187
+00:09:52,315 --> 00:09:56,077
+they're being used, their uptime, 
+how much space you have left.
+
+188
+00:09:56,077 --> 00:09:59,047
+Maybe you're going to run out of space,
+whatever the case may be.
+
+189
+00:09:59,146 --> 00:10:02,743
+So that you can also look at the load
+that's going to IO going in
+
+190
+00:10:02,743 --> 00:10:06,538
+and out of those, because maybe
+your partitions are poorly partitioned.
+
+191
+00:10:06,835 --> 00:10:10,366
+You're going to find that out real quickly
+by looking at your observability,
+
+192
+00:10:11,917 --> 00:10:12,544
+okay?
+
+193
+00:10:12,544 --> 00:10:17,362
+Autoscaling becomes a key aspect of this,
+especially if you got one region
+
+194
+00:10:17,362 --> 00:10:20,596
+where you've got partitions running
+that is getting clobbered.
+
+195
+00:10:20,596 --> 00:10:25,843
+For some reason, this tends to happen
+especially around, Thanksgiving time
+
+196
+00:10:26,107 --> 00:10:29,638
+and the big shopping season
+where a region is getting clobbered
+
+197
+00:10:29,638 --> 00:10:34,291
+and then it shifts to another region
+as, the world wakes up
+
+198
+00:10:34,291 --> 00:10:37,162
+and does their shopping,
+which is which is really fascinating.
+
+199
+00:10:37,162 --> 00:10:41,914
+You can actually see,
+how many people are hitting
+
+200
+00:10:41,914 --> 00:10:45,874
+different regions based off of,
+the monitoring that's going on.
+
+201
+00:10:45,907 --> 00:10:47,854
+Oh, you could say, oh, Asia is waking up.
+
+202
+00:10:47,854 --> 00:10:50,857
+They're starting to buy or whatever
+the case may be.
+
+203
+00:10:50,890 --> 00:10:55,246
+Okay, so use intelligent load balancing
+so I can scale up and scale down
+
+204
+00:10:55,576 --> 00:11:00,294
+and maybe even reroute if I'm
+getting overwhelmed in the US region.
+
+205
+00:11:00,492 --> 00:11:05,673
+And I've got spare cycles in Asia PAC,
+maybe I maybe I'll take the latency hit
+
+206
+00:11:06,135 --> 00:11:09,303
+because it's going to be less
+than, than the load
+
+207
+00:11:09,303 --> 00:11:12,867
+that I'm running, on my, U.S system.
+
+208
+00:11:12,867 --> 00:11:17,025
+So be smart about these things,
+so that you can take advantage of,
+
+209
+00:11:17,025 --> 00:11:20,391
+you know, all your,
+resources that you have,
+
+210
+00:11:21,414 --> 00:11:21,909
+right?
+
+211
+00:11:21,909 --> 00:11:24,186
+Also take advantage of things
+that are built in
+
+212
+00:11:24,186 --> 00:11:27,882
+automatically into some of the middleware,
+like Kubernetes.
+
+213
+00:11:27,948 --> 00:11:32,568
+Auto scaling and, making sure that you,
+
+214
+00:11:33,129 --> 00:11:35,934
+have the partition aware metrics
+that are built
+
+215
+00:11:35,934 --> 00:11:38,937
+into the autoscaling.
+
+216
+00:11:39,135 --> 00:11:39,465
+Okay.
+
+217
+00:11:39,465 --> 00:11:45,240
+Here's a great example of a multi-cloud,
+hybrid cloud, architecture where
+
+218
+00:11:45,240 --> 00:11:49,596
+I've got three regions, I've got a, East,
+
+219
+00:11:49,596 --> 00:11:53,523
+a Europe West and an Asia South region.
+
+220
+00:11:53,523 --> 00:11:57,087
+So as I mentioned before,
+depending on the load
+
+221
+00:11:57,087 --> 00:11:59,496
+and it could be the time of day
+in that region,
+
+222
+00:11:59,496 --> 00:12:01,113
+the load could go up and come down.
+
+223
+00:12:01,113 --> 00:12:04,314
+So your autoscaler needs to be able
+to take advantage of that.
+
+224
+00:12:04,743 --> 00:12:08,802
+But in addition
+you might want to say, well, I'm okay
+
+225
+00:12:08,802 --> 00:12:13,059
+if I'm going to take and reroute
+some of my request
+
+226
+00:12:13,950 --> 00:12:17,415
+instead of just being so region based
+if I'm allowed.
+
+227
+00:12:17,811 --> 00:12:21,540
+Right, based off of,
+you know, regulatory criteria,
+
+228
+00:12:21,903 --> 00:12:25,335
+I can leverage some of the resources
+in the other regions to help me out.
+
+229
+00:12:25,896 --> 00:12:29,196
+So be smart about this
+and come up with a good strategy.
+
+230
+00:12:29,460 --> 00:12:32,727
+Remember, we've talked about
+in the observability lecture
+
+231
+00:12:33,090 --> 00:12:37,776
+about, establishing your sla's,
+your slides, your SLOs.
+
+232
+00:12:38,172 --> 00:12:41,736
+Make sure you have those so that you know,
+when you're going to scale
+
+233
+00:12:41,736 --> 00:12:46,158
+and maybe when you're going to flip over
+to a new partition in a new region.
+
+234
+00:12:48,732 --> 00:12:49,524
+Security.
+
+235
+00:12:49,524 --> 00:12:51,405
+I can't emphasize security enough.
+
+236
+00:12:51,405 --> 00:12:54,606
+We've seen way too many,
+
+237
+00:12:54,606 --> 00:12:58,533
+ransomware attacks and hacks,
+especially around this time of year.
+
+238
+00:12:58,764 --> 00:13:01,635
+It tends to go up
+because this is the time of year
+
+239
+00:13:01,635 --> 00:13:04,440
+that a lot of people, close
+a lot of business.
+
+240
+00:13:04,440 --> 00:13:04,836
+All right?
+
+241
+00:13:04,836 --> 00:13:07,740
+And, emotions are high
+and things like that.
+
+242
+00:13:07,740 --> 00:13:10,776
+So make sure
+that you're looking at security.
+
+243
+00:13:10,875 --> 00:13:15,264
+Some key aspects on security
+here is make sure that you have your arbok
+
+244
+00:13:15,264 --> 00:13:18,927
+your access control
+all set up appropriately across
+
+245
+00:13:19,356 --> 00:13:22,392
+all of your regions
+so that you don't get stuck.
+
+246
+00:13:22,392 --> 00:13:22,821
+Right.
+
+247
+00:13:22,821 --> 00:13:26,220
+In the middle of updating your access.
+
+248
+00:13:26,220 --> 00:13:27,078
+Right?
+
+249
+00:13:27,078 --> 00:13:28,167
+When something goes wrong,
+
+250
+00:13:28,167 --> 00:13:31,599
+make sure that you are using secret
+management and credentials
+
+251
+00:13:31,896 --> 00:13:35,196
+for encryption keys,
+and they should be per partition.
+
+252
+00:13:35,196 --> 00:13:38,859
+Don't have one encryption
+key across all your partitions ten.
+
+253
+00:13:38,859 --> 00:13:42,291
+That tends to be a bad practice
+because if they get into one,
+
+254
+00:13:42,489 --> 00:13:45,228
+that means they now have access
+to all the other ones.
+
+255
+00:13:45,228 --> 00:13:49,221
+Make sure that you are encrypting
+all your data at rest and in transit.
+
+256
+00:13:49,617 --> 00:13:52,587
+And if it's highly secure stuff,
+there's new techniques out there
+
+257
+00:13:52,587 --> 00:13:55,722
+to even encrypt code in use, right?
+
+258
+00:13:55,920 --> 00:13:59,286
+In using things like confidential
+computing or trusted execution
+
+259
+00:13:59,286 --> 00:14:02,289
+environment, concepts that are out there.
+
+260
+00:14:02,289 --> 00:14:05,292
+Also make sure that you're
+isolating your,
+
+261
+00:14:05,292 --> 00:14:08,526
+partition communications
+with network segmentation.
+
+262
+00:14:08,526 --> 00:14:13,146
+A lot of architectures
+set up a data centric network
+
+263
+00:14:13,377 --> 00:14:16,380
+with its own keys,
+and it could be an overlay network.
+
+264
+00:14:16,578 --> 00:14:21,066
+Try and run it off of different
+Nic cards or virtual NICs if you can.
+
+265
+00:14:21,363 --> 00:14:26,115
+That will segregate, the data
+from the application, network traffic.
+
+266
+00:14:26,544 --> 00:14:26,973
+Right.
+
+267
+00:14:26,973 --> 00:14:29,745
+And typically,
+if you're moving a lot of data,
+
+268
+00:14:29,745 --> 00:14:32,550
+you can be more smart
+about about that on those networks
+
+269
+00:14:32,550 --> 00:14:36,543
+and they can be optimized for that,
+data transfer across those.
+
+270
+00:14:37,038 --> 00:14:41,460
+Make sure that you keep your audit logs
+and track access across the different,
+
+271
+00:14:41,460 --> 00:14:45,486
+partitions and any modifications
+to partition security.
+
+272
+00:14:47,763 --> 00:14:48,060
+All right.
+
+273
+00:14:48,060 --> 00:14:51,987
+In summary, data partitioning enables
+scalability.
+
+274
+00:14:53,703 --> 00:14:56,970
+Excuse me, resilience and compliance
+
+275
+00:14:57,630 --> 00:15:00,633
+across, multi hybrid cloud systems.
+
+276
+00:15:00,996 --> 00:15:04,626
+Really beneficial
+when you're looking at large systems
+
+277
+00:15:05,154 --> 00:15:09,906
+and and systems
+that require, you know, some, resiliency
+
+278
+00:15:10,236 --> 00:15:13,206
+and if you've got data
+that needs to be backed up,
+
+279
+00:15:13,569 --> 00:15:16,572
+make sure that you're backing up
+all of these,
+
+280
+00:15:16,968 --> 00:15:18,255
+all these different partitions.
+
+281
+00:15:18,255 --> 00:15:20,400
+You can't just backup one, right.
+
+282
+00:15:20,400 --> 00:15:23,436
+Make sure that you have proper management
+across the whole thing.
+
+283
+00:15:25,515 --> 00:15:25,911
+All right.
+
+284
+00:15:25,911 --> 00:15:31,224
+A great picture of, multi hybrid cloud, 
+including an on prem data center.
+
+285
+00:15:31,521 --> 00:15:35,415
+I've got different partitions,
+I've got observability,
+
+286
+00:15:35,415 --> 00:15:38,847
+security layer autoscaling built in.
+
+287
+00:15:38,847 --> 00:15:42,807
+And you should have those three things
+in every single region that you have,
+
+288
+00:15:42,807 --> 00:15:47,328
+whether it's in the private
+cloud or in a public cloud.

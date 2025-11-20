@@ -1,0 +1,25 @@
+@startuml
+actor Client1 as C1
+actor Client2 as C2
+
+package "Distributed File System" #ccccff {
+
+  rectangle "Metadata Server" as MetaServer
+  rectangle "Storage Node 1" as Storage1
+  rectangle "Storage Node 2" as Storage2
+  rectangle "Storage Node 3" as Storage3
+
+  MetaServer --> Storage1 : Manage file metadata & locations
+  MetaServer --> Storage2
+  MetaServer --> Storage3
+}
+
+C1 --> MetaServer : Request file metadata
+C1 --> Storage1 : Read/Write file blocks
+C1 --> Storage2 : Read/Write file blocks
+
+C2 --> MetaServer : Request file metadata
+C2 --> Storage2 : Read/Write file blocks
+C2 --> Storage3 : Read/Write file blocks
+
+@enduml

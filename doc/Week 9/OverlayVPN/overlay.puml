@@ -13,7 +13,8 @@ skinparam circle {
 
 ' Define cloud components
 rectangle "Cloud Region A" <<cloud>> {
-  node "Compute VM 1" as VM1
+  node "Compute VM 1" as VM1 {
+  }
   node "Compute VM 2" as VM2
 }
 

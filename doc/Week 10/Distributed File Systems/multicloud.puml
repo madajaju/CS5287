@@ -1,0 +1,38 @@
+@startuml
+title Multi-Hybrid Cloud DFS: Data Partitions and Replication
+
+actor User
+
+package "Multi-Hybrid Cloud Environment" {
+
+  cloud "Public Cloud A" {
+    rectangle "DFS Partition A1\n(Storage & Compute)" as PartitionA1
+    rectangle "DFS Partition A2\n(Storage & Compute)" as PartitionA2
+  }
+
+  cloud "Public Cloud B" {
+    rectangle "DFS Partition B1\n(Storage & Compute)" as PartitionB1
+  }
+
+  package "On-Prem Data Center" {
+    rectangle "DFS Partition C1\n(Storage & Compute)" as PartitionC1
+    rectangle "DFS Partition C2\n(Storage & Compute)" as PartitionC2
+  }
+}
+
+User --> PartitionA1 : Access files
+User --> PartitionC1
+
+PartitionA1 <--> PartitionB1 : Data Replication
+PartitionA2 <--> PartitionC2 : Data Replication
+PartitionB1 <--> PartitionC1 : Data Replication
+
+note right of PartitionA1
+  Replication for fault tolerance\nand data locality
+end note
+
+note right of PartitionC1
+  On-premises storage with sync\nacross clouds
+end note
+
+@enduml

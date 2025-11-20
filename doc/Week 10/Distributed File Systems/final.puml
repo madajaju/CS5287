@@ -1,0 +1,56 @@
+@startuml
+title Consolidated Multi-Hybrid Cloud DFS Architecture with Operations Layers
+
+actor User
+
+package "Multi-Hybrid Cloud Environment" {
+
+  cloud "Cloud Region 1" {
+    rectangle "DFS Partition 1" as Part1
+    rectangle "Observability\nDashboard & Metrics" as Obs1
+    rectangle "Autoscaling Controller" as Auto1
+    rectangle "Security Layer\n(Network Policies, RBAC)" as Sec1
+  }
+
+  cloud "Cloud Region 2" {
+    rectangle "DFS Partition 2" as Part2
+    rectangle "Observability\nDashboard & Metrics" as Obs2
+    rectangle "Autoscaling Controller" as Auto2
+    rectangle "Security Layer\n(Network Policies, RBAC)" as Sec2
+  }
+
+  package "On-Prem Data Center" {
+    rectangle "DFS Partition 3" as Part3
+    rectangle "Observability\nDashboard & Metrics" as Obs3
+    rectangle "Autoscaling Controller" as Auto3
+    rectangle "Security Layer\n(Network Policies, RBAC)" as Sec3
+  }
+}
+
+User --> Part1 : File access
+User --> Part2
+User --> Part3
+
+Part1 --> Obs1 : Emit logs & metrics
+Part1 --> Auto1 : Send scaling metrics
+Part1 --> Sec1 : Enforce security policies
+
+Part2 --> Obs2 : Emit logs & metrics
+Part2 --> Auto2 : Send scaling metrics
+Part2 --> Sec2 : Enforce security policies
+
+Part3 --> Obs3 : Emit logs & metrics
+Part3 --> Auto3 : Send scaling metrics
+Part3 --> Sec3 : Enforce security policies
+
+Obs1 --> Obs2
+Obs2 --> Obs3 : Centralized monitoring aggregation
+
+Auto1 --> Part1 : Scale up/down instances
+Auto2 --> Part2
+Auto3 --> Part3
+
+Sec1 -[#blue]-> Sec2 : Policy sync & audit logs
+Sec2 -[#blue]-> Sec3
+
+@enduml

@@ -1,0 +1,55 @@
+@startuml
+
+actor User
+
+package "Multi-Hybrid Cloud" {
+
+  cloud "Cloud Region A" #aaffaa {
+    rectangle "Partition A\n(Data Storage & Compute)" as PartitionA
+    rectangle "Observability\n(Logging, Metrics, Tracing)" as ObservabilityA
+    rectangle "Autoscaling Controller" as AutoscalingA
+    rectangle "Security Layer\n(Network Policies, Access Control)" as SecurityA
+  }
+
+  cloud "Cloud Region B" #ffffaa {
+    rectangle "Partition B\n(Data Storage & Compute)" as PartitionB
+    rectangle "Observability\n(Logging, Metrics, Tracing)" as ObservabilityB
+    rectangle "Autoscaling Controller" as AutoscalingB
+    rectangle "Security Layer\n(Network Policies, Access Control)" as SecurityB
+  }
+
+  package "On-Prem Data Center" #cccccc {
+    rectangle "Partition C\n(Data Storage & Compute)" as PartitionC
+    rectangle "Observability\n(Logging, Metrics, Tracing)" as ObservabilityC
+    rectangle "Autoscaling Controller" as AutoscalingC
+    rectangle "Security Layer\n(Network Policies, Access Control)" as SecurityC
+  }
+}
+
+User --> PartitionA : Access / Query
+User --> PartitionB
+User --> PartitionC
+
+PartitionA --> ObservabilityA : Emit logs & metrics
+PartitionA --> AutoscalingA : Send load metrics
+PartitionA --> SecurityA : Access control enforcement
+
+PartitionB --> ObservabilityB : Emit logs & metrics
+PartitionB --> AutoscalingB : Send load metrics
+PartitionB --> SecurityB : Access control enforcement
+
+PartitionC --> ObservabilityC : Emit logs & metrics
+PartitionC --> AutoscalingC : Send load metrics
+PartitionC --> SecurityC : Access control enforcement
+
+ObservabilityA --> ObservabilityB : Centralized aggregation
+ObservabilityB --> ObservabilityC
+
+AutoscalingA --> PartitionA : Scale service instances
+AutoscalingB --> PartitionB
+AutoscalingC --> PartitionC
+
+SecurityA -[#blue]-> SecurityB : Policy sync / audit
+SecurityB -[#blue]-> SecurityC
+
+@enduml
