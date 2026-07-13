@@ -1,0 +1,113 @@
+﻿= Serverless in Cloud Computing
+:revealjsdir: https://cdn.jsdelivr.net/npm/reveal.js@5
+:revealjs_theme: white
+:revealjs_controls: true
+:revealjs_slideNumber: true
+:imagesdir: .
+:icons: font
+:sectnums: false
+:source-highlighter: highlightjs
+
+
+== Serverless in Cloud Computing
+
+== Leveraging FaaS, PaaS and Self-Hosted Models
+Video: https://youtu.be/hDdhx8is5Pc
+
+---
+
+
+== 1. What Is Serverless?
+- A cloud execution model where the provider dynamically manages resource allocation
+- Developers deploy functions or containers; infra is abstracted away
+- Pay-per-use billing (invocations, execution time, memory)
+- No servers to provision, patch, or scale manually
+
+---
+
+
+== 2. Execution Models
+== 2.1 Function as a Service (FaaS)
+- Granular, event-driven functions
+- Examples: AWS Lambda, Azure Functions, Google Cloud Functions
+
+== 2.2 Platform as a Service (PaaS)
+- Deploy entire applications or microservices
+- Runtime, frameworks, and OS managed by provider
+- Examples: AWS Elastic Beanstalk, Google App Engine
+
+== 2.3 Self-Hosted “Serverless”
+- Run open-source FaaS frameworks on your infra
+- Examples: OpenFaaS, Knative, Apache OpenWhisk
+
+---
+
+
+== 3. Typical Use Cases
+- *API backends*: lightweight, event-driven REST endpoints
+- *Data processing pipelines*: ETL jobs triggered by storage or messaging events
+- *Real-time stream processing*: processing messages/Kafka streams
+- *Scheduled tasks*: cron-style jobs without a VM
+- *Webhooks & bots*: respond to third-party events on demand
+
+---
+
+
+== 4. Advantages of Serverless
+- *Operational simplicity*: no server lifecycle management
+- *Automatic scaling*: transparent scale-up/down per invocation
+- *Cost efficiency*: pay only for actual usage
+- *Rapid deployment*: focus on code, not infra
+- *Built-in high availability*: provider handles redundancy
+
+---
+
+
+== 5. Disadvantages & Trade-Offs
+- *Cold starts*: latency on first invocation after idle period
+- *Vendor lock-in*: proprietary APIs, runtimes, and deployment tooling
+- *Limited execution time*: max timeout per provider (e.g., 15m for Lambda)
+- *Resource limits*: memory, CPU, ephemeral storage quotas
+- *Complex debugging & monitoring*: distributed, event-driven architecture
+
+---
+
+
+== 6. FaaS vs PaaS vs Self-Hosted
+| Feature         | FaaS (Lambda)      | PaaS (App Engine)   | Self-Hosted FaaS    |
+| --------------- | ------------------ | ------------------- | ------------------- |
+| Management      | Minimal            | Moderate            | High                |
+| Startup latency | Cold start impact  | Warm container      | Varies by infra     |
+| Scalability     | Instantaneous      | Auto-scale policies | Dependent on cluster|
+| Cost model      | Per-call           | Instance hours      | Infra + ops costs   |
+| Lock-in risk    | High               | Medium              | Low                 |
+
+---
+
+
+== 7. Key Considerations & Best Practices
+- *Optimize cold starts*: use Provisioned Concurrency, small packages, warmers
+- *Stateless design*: functions should not rely on local state
+- *Observability*: centralized logging (CloudWatch, Stackdriver), distributed tracing
+- *Security*: least-privilege IAM roles, network isolation, secret management
+- *CI/CD*: automate builds, tests, blue/green or canary deployments
+
+---
+
+
+== 8. When to Self-Host?
+- Strict compliance or data residency requirements
+- Avoid vendor lock-in or proprietary limitations
+- Customize runtime beyond provider offerings
+- Leverage existing on-premises infra investments
+- You have a dedicated DevOps team
+
+---
+
+
+== 9. Summary & Next Steps
+1. Identify workloads that fit event-driven models
+2. Prototype with a managed FaaS (e.g., AWS Lambda)
+3. Benchmark cold starts, concurrency, and cost
+4. Explore hybrid: managed FaaS + self-hosted for critical paths
+5. Implement observability and security guardrails

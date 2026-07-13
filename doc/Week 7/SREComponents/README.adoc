@@ -1,0 +1,123 @@
+﻿= Site Reliability Engineering (SRE) Components in Cloud Computing
+:revealjsdir: https://cdn.jsdelivr.net/npm/reveal.js@5
+:revealjs_theme: white
+:revealjs_controls: true
+:revealjs_slideNumber: true
+:imagesdir: .
+:icons: font
+:sectnums: false
+:source-highlighter: highlightjs
+
+
+== Site Reliability Engineering (SRE) Components in Cloud Computing
+
+---
+
+
+Video: https://youtu.be/bQyqQPPx-eg
+
+== Introduction
+- Applies software engineering to operations
+- Ensures reliability, scalability, efficiency
+- Balances feature velocity and uptime
+- Drives automation and continuous improvement
+
+---
+
+
+== 1. SLIs & SLOs
+- SLIs: key health metrics (latency, errors)
+- SLOs: targets for SLIs (e.g. 99.9% < 100 ms)
+- Align with user expectations
+- Regularly review and adjust
+- Share dashboards transparently
+
+---
+
+
+== 2. Error Budgets
+- Budget = 100% − SLO
+- Guides feature vs. reliability work
+- Monitor burn rate continuously
+- Enforce freezes when budget low
+- Learn via blameless postmortems
+
+---
+
+
+== 3. Monitoring & Observability
+- Collect metrics (CPU, req. time)
+- Structured, contextual logs
+- Distributed tracing for latency
+- Dashboards with actionable alerts
+- Use open standards (Prometheus, OT)
+
+---
+
+
+== 4. Alerting & On-Call
+- Alert on user-impact symptoms
+- Suppress noise, dedupe alerts
+- Fair, documented on-call rotations
+- Clear escalation paths
+- Linked runbooks for each alert
+
+---
+
+
+== 5. Incident Response
+- Runbooks for known failures
+- Centralized ChatOps “war rooms”
+- Blameless postmortems + action items
+- Track MTTA & MTTR metrics
+- Maintain incident knowledge base
+
+---
+
+
+== 6. Automation & Orchestration
+- CI/CD for build, test, deploy
+- Canary & blue-green rollouts
+- Auto-remediation scripts/operators
+- Infrastructure as Code (Terraform)
+- Chaos experiments for resilience
+
+---
+
+
+== 7. Capacity & Performance
+- Forecast resource needs
+- Right-size instances continuously
+- Reactive & predictive autoscaling
+- Balance cost vs. performance
+- Regular load and stress testing
+
+---
+
+
+== 8. Security & Compliance
+- Shift-left vulnerability scanning
+- IaC configuration checks
+- Comprehensive audit logging
+- Compliance-as-code (PCI, HIPAA)
+- Joint security-ops incident drills
+
+---
+
+
+== 9. Reliability Culture
+- “You build it, you run it” ethos
+- Blameless reviews, shared learning
+- Brown-bags, tech talks, docs
+- Dev-ops-security collaboration
+- Continuous process retrospectives
+
+---
+
+
+== Conclusion & Best Practices
+- Set clear, business-aligned SLOs
+- Automate to eliminate toil
+- Cultivate blameless, learning culture
+- Invest in full-stack observability
+- Iterate using metrics and postmortems

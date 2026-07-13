@@ -4,9 +4,10 @@
 
 Compare virtualization and infrastructure automation approaches used to provision cloud resources.
 
-* [IaaS](IaaS/README.marp.md)
-* [OpenStack](OpenStack/README.marp.md)
+* [Virtualization](Virtualization/README.adoc)
+* [IaaS](IaaS/README.adoc)
+* [OpenStack](OpenStack/README.adoc)
 * [MultiCloud](MultiCloud.pdf)
-* [Infrastructure as Code](IaC/README.marp.md)
-* [Ansible](Ansible/README.marp.md)
-* [TerraForm](TerraForm/README.marp.md)
+* [Infrastructure as Code](IaC/README.adoc)
+* [Ansible](Ansible/README.adoc)
+* [TerraForm](TerraForm/README.adoc)

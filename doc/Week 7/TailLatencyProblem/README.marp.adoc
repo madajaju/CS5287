@@ -1,0 +1,81 @@
+﻿= Understanding Tail Latency
+:revealjsdir: https://cdn.jsdelivr.net/npm/reveal.js@5
+:revealjs_theme: white
+:revealjs_controls: true
+:revealjs_slideNumber: true
+:imagesdir: .
+:icons: font
+:sectnums: false
+:source-highlighter: highlightjs
+
+<!-- _class: lead -->
+== Understanding Tail Latency
+
+Video: https://youtu.be/DYLhb4e_oaU
+
+== The “Long Tail” Problem in Distributed Systems
+
+
+== Why Tail Latency Matters
+- End-user frustration on “slow” pages
+- Compounds in fan-out calls → cascading delays
+- Violates SLOs even if average looks good
+- Impacts overall system throughput and cost
+
+---
+
+
+== Common Causes
+- Resource contention (CPU, I/O, locks)
+- Garbage collection or background GC pauses
+- Network variance (retries, packet loss)
+- Uneven load distribution (hot partitions)
+- Cold caches and JIT compilation
+
+---
+
+
+== Measurement & Diagnosis
+- Collect high-resolution percentiles (99th, 99.9th)
+- End-to-end tracing to pinpoint slow segments
+- Histogram-based metrics (HDR Histograms)
+- Alert on tail-percentile breaches
+- Correlate with logs, GC, thread dumps
+
+---
+
+
+== Mitigation Strategies
+- *Load Balancing*: shard/hot-key mitigation, randomization
+- *Resource Isolation*: cgroup/CPU pinning, dedicated threads
+- *Adaptive Timeouts & Retries*: exponential backoff, hedged requests
+- *Caching & Pre-warming*: keep hot data in memory
+- *Back-pressure & Rate Limiting*: protect downstream services
+
+---
+
+
+== Architectural Patterns
+- *Bulkheads*: isolate failure domains
+- *Circuit Breakers*: fail fast under overload
+- *Bulk Async Pipelines*: batch work to smooth spikes
+- *Tail-tolerant Aggregation*: accept partial responses
+
+---
+
+
+== Best Practices
+- Define tail-latency SLOs (e.g., 99.9th < 500 ms)
+- Monitor histograms, not just averages
+- Regularly run chaos and load tests
+- Automate auto-scaling based on tail metrics
+- Continuously review and optimize hotspots
+
+---
+
+
+== Conclusion
+Tail latency is a key dimension of reliability.  
+By measuring, diagnosing, and applying resilient design patterns,  
+you can ensure consistent and predictable performance  
+even under extreme or variable load.
