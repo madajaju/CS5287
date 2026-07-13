@@ -4,6 +4,12 @@
 
 ---
 
+## Integrity Packet Requirement
+
+Include an Integrity Packet with CA1. Capture the claims your automation makes, the evidence that proves the deployed state, the assumptions in your code, and any AI-assisted work you reviewed or revised.
+
+---
+
 ## What You Must Do
 
 1. **Choose Your IaC Tooling**  
@@ -42,6 +48,7 @@
         - How to destroy.
         - How to run validation tests.
         - Any deviations from CA0 or your reference stack.
+    - **Integrity Packet** showing the reasoning, evidence, and AI critique for the automated deployment.
     - **Run Logs**: Attach logs or console output showing successful create/destroy and pipeline test.
     - **Outputs Summary**: List endpoints/IPs, topic names, database connection strings, and validation results.
 

@@ -9,6 +9,26 @@
 | CA4 – Multi-Hybrid Cloud (Final)| Dec 5, 2025               |
 
 
+## Weekly Learning Objectives
+
+| Week | Objective |
+| --- | --- |
+| Week 0 | Establish course expectations, tooling, the integrity packet, and the shared workflow for the semester. |
+| Week 1 | Build foundational understanding of cloud origins, service models, deployment choices, REST, and the integrity packet. |
+| Week 2 | Connect systems, networking, security basics, and integrity-packet evidence collection to cloud behavior. |
+| Week 3 | Compare virtualization and infrastructure automation approaches used to provision cloud resources. |
+| Week 4 | Explain container isolation, image lifecycle, networking, and orchestration basics. |
+| Week 5 | Trace how Kubernetes schedules and connects workloads, including service mesh patterns. |
+| Week 6 | Apply load balancing, scheduling, and autoscaling to keep services responsive. |
+| Week 7 | Analyze tail latency and use SLI, SLO, and SLA concepts to define reliable operations. |
+| Week 8 | Use observability signals and chaos experiments to validate system resilience. |
+| Week 9 | Distinguish serverless and edge or fog models and match them to workload patterns. |
+| Week 10 | Compare distributed file systems and sharding strategies for multi-hybrid cloud storage. |
+| Week 11 | Understand batch and distributed data processing frameworks and when to use them. |
+| Week 12 | Evaluate GPU-based cloud execution, LLM serving, and agentic workflow patterns. |
+| Week 13 | Explain SDN, NFV, and 5G integration in modern cloud networking. |
+| Week 14 | Shape and present a final project plan with a clear problem, architecture, and milestones. |
+
 ## Lectures
 
 | Week                           | Topics                                                                                                                                     |
@@ -27,8 +47,7 @@
 | [Week 11](Week%2011/README.md) | MapReduce, Apache Spark Overview, Apache Ray Overview                                                                                      |
 | [Week 12](Week%2012/README.md) | GPU Architectures for Cloud, LLM Serving in the Cloud, Agentic Workflows                                                                   |
 | [Week 13](Week%2013/README.md) | Software Defined Networking (SDN), Network Function Virtualization (NFV), 5G & Beyond                                                      |
-| [Week 14](Week%2014/README.md) | Final Project Proposal                                                                                                                     |
-| [Week 15](Week%2015/README.md) | Final Project Presentation                                                                                                                 |
+| [Week 14](Week%2014/README.md) | Final Project Proposal & Presentation                                                                                                      |
 
 ### **Week 0 – Orientation**
 

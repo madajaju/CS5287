@@ -4,6 +4,12 @@
 
 ---
 
+## Integrity Packet Requirement
+
+Include an Integrity Packet with CA4. It should show the design claims for the multi-site system, the evidence from connectivity and failure tests, the assumptions you made, and any AI assistance you evaluated.
+
+---
+
 ## 1. Choose Your Topology
 
 Select one of the following patterns or develop your own and document your choice: It must include two more locations.
@@ -71,6 +77,8 @@ Implement one connectivity model and describe it clearly:
     - End-to-end data flow across sites and resilience drill.
 4. **README.md**
     - Overview of topology, connectivity method, deployment instructions, and any deviations from CA2.
+5. **Integrity Packet**
+    - Claims, evidence, assumptions, AI critique, and recovery notes.
 
 ---
 

@@ -4,6 +4,12 @@
 
 ---
 
+## Integrity Packet Requirement
+
+Include an Integrity Packet with CA2. It should track the design claims for the orchestrated stack, the manifests and outputs that support those claims, and any AI guidance you validated before using it.
+
+---
+
 ## What You Must Do
 
 1. **Platform Provisioning**
@@ -47,6 +53,7 @@
         - Deploy and destroy commands.
         - How to run the scaling test and where to find logs/results.
         - Any deviations from CA0/CA1 and reasons.
+    - **Integrity Packet** documenting manifest claims, test evidence, AI use, and implementation notes.
     - **Outputs**:
         - Screenshot of `kubectl get all -A` or `docker stack ps`.
         - NetworkPolicy YAML or Swarm network diagram.

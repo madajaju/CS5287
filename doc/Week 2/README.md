@@ -1,4 +1,13 @@
 # Week 2
+
+## Learning Objective
+
+Connect systems, networking, and security basics to cloud infrastructure behavior.
+
+## Integrity Packet
+
+Continue the Integrity Packet with evidence from system, networking, and security exercises. Capture commands, outputs, assumptions, and any AI-generated suggestions you verify or discard.
+
 Topics this week
 * [Operating_Systems_and_Networks](1_Operating_Systems_and_Networks.marp.md)
 * [Processs_Management](2_Processs_Management.marp.md)

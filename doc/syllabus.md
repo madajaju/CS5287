@@ -34,6 +34,56 @@ By the end of this course, students will be able to:
 7. Use GenAI tools effectively for technical problem-solving and presentation.
 8. Communicate technical concepts clearly in both written and spoken formats.
 
+## **Course Skill Balance**
+
+This course uses the following balance across the semester:
+
+| Area | Focus |
+| ---- | -----: |
+| SME Skills | 70% |
+| AI Skills | 10% |
+| Core Skills | 10% |
+| Meta Skills | 10% |
+
+The framing is:
+
+* **70% SME Skills**: Can I build it correctly?
+* **10% AI Skills**: Can I use AI effectively?
+* **10% Core Skills**: Can I communicate and work professionally?
+* **10% Meta Skills**: Can I think like an engineer?
+
+## **Integrity Packet**
+
+The Integrity Packet is the course artifact used to capture engineering claims, assumptions, evidence, validation steps, AI-assisted work, and final ownership of a solution. It is required in the first couple of weeks of the course and in every assignment submission.
+
+Students should use it to:
+
+* record what they believe the system does
+* document what evidence supports that claim
+* show how AI was used, verified, accepted, or rejected
+* note assumptions, gaps, and escalation points
+* preserve the reasoning that led to the final submission
+
+## **Weekly Learning Objectives**
+
+| Week | Objective |
+| ---- | --------- |
+| 0 | Establish course expectations, tooling, the integrity packet, and the shared workflow for the semester. |
+| 1 | Build foundational understanding of cloud origins, service models, deployment choices, REST, and the integrity packet. |
+| 2 | Connect systems, networking, security basics, and integrity-packet evidence collection to cloud behavior. |
+| 3 | Compare virtualization and infrastructure automation approaches used to provision cloud resources. |
+| 4 | Explain container isolation, image lifecycle, networking, and orchestration basics. |
+| 5 | Trace how Kubernetes schedules and connects workloads, including service mesh patterns. |
+| 6 | Apply load balancing, scheduling, and autoscaling to keep services responsive. |
+| 7 | Analyze tail latency and use SLI, SLO, and SLA concepts to define reliable operations. |
+| 8 | Use observability signals and chaos experiments to validate system resilience. |
+| 9 | Distinguish serverless and edge or fog models and match them to workload patterns. |
+| 10 | Compare distributed file systems and sharding strategies for multi-hybrid cloud storage. |
+| 11 | Understand batch and distributed data processing frameworks and when to use them. |
+| 12 | Evaluate GPU-based cloud execution, LLM serving, and agentic workflow patterns. |
+| 13 | Explain SDN, NFV, and 5G integration in modern cloud networking. |
+| 14 | Shape and present a final project plan with a clear problem, architecture, and milestones. |
+
 ## **Course Structure**
 
 Each week follows this structure:
@@ -123,7 +173,6 @@ The final exam is a **one-on-one technical interview** with Dr. Darren on a topi
 | 12   | AI in the cloud                      | Continue CA4          |
 | 13   | Networking innovations               | Continue CA4          |
 | 14   | Team presentations                   | Submit CA4            |
-| 15   | Final interview                      |                       |
 
 **Note:** See the [Schedule](Schedule.md) tab for the full schedule and assignment dates.
 

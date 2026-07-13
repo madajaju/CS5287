@@ -1,5 +1,13 @@
 # Week 1
 
+## Learning Objective
+
+Build foundational understanding of cloud origins, service models, deployment choices, and REST.
+
+## Integrity Packet
+
+Start your Integrity Packet this week. Record the claims you make about a cloud model, the evidence you use to support those claims, and any AI assistance you rely on or reject.
+
 ## Topics covered
 * [Cloud Computing](1%20Cloud%20Computing.marp.md)
 * [Enablers for Cloud Computing](2%20Enablers%20for%20Cloud%20Computing.marp.md)

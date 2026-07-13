@@ -4,6 +4,12 @@
 
 ---
 
+## Integrity Packet Requirement
+
+Include an Integrity Packet with CA0. It should capture the claim you are making about your deployment, the evidence that supports it, the assumptions behind your setup, and any AI-generated guidance you verified or rejected.
+
+---
+
 ## What You Must Do
 
 0. **Document your software stack**
@@ -38,6 +44,7 @@
         - VM specs (size, OS, IPs), image tags, and version numbers.
         - High-level steps executed (you may capture commands or UI screenshots).
         - Any deviations from the reference stack and the reason why.
+    - **Integrity Packet** documenting claims, evidence, assumptions, AI assistance, and validation results.
     - **Network Diagram** showing subnets/CIDRs, open ports, and trust boundaries.
     - **Configuration Summary** table: component name, image/version, host, port.
     - **Demo Video** (1–2 minutes): recording of you running the producer, observing Kafka, processor, and verifying a DB entry.

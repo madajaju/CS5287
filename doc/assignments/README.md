@@ -44,6 +44,12 @@ Students may elect to use an alternative but equivalent stack (for example, Rabb
 - **[CA4 – Multi-Hybrid Cloud (Final)](./CA4-MultiHybrid/index.md)**  
   Distribute components across sites/clouds with secure connectivity and failover.
 
+## Integrity Packet Requirement
+
+Every assignment includes an Integrity Packet. Use it to document the engineering claims you are making, the evidence that supports them, the assumptions you relied on, and any AI assistance you used, verified, accepted, or rejected.
+
+The packet is required for CA0 through CA4 and should evolve as the project grows. A starter template is available at [shared/integrity-packet-template.md](./shared/integrity-packet-template.md).
+
 ![assignments.png](assignments.png)
 
 ## Grading rubric (applies to each assignment)

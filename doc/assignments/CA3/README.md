@@ -4,6 +4,12 @@
 
 ---
 
+## Integrity Packet Requirement
+
+Include an Integrity Packet with CA3. Record your observability claims, the metrics and logs that support them, the failure drills you ran, and any AI-generated suggestions you checked before adopting.
+
+---
+
 ## 1. Observability
 
 ### Centralized Logging
@@ -88,6 +94,7 @@
 - **Manifests/Configs**: HPA, NetworkPolicies, Secret definitions, TLS snippets
 - **Video**: resilience drill showing failure, recovery, and operator notes
 - **README.md**: updated with observability setup, scaling instructions, security and resilience details
+- **Integrity Packet**: claims, evidence, assumptions, AI critique, and open risks
 
 ---
 ---  
