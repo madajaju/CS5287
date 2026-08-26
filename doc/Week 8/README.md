@@ -1,7 +1,14 @@
-# Topic This Week
+# Week 8
 
 ## Learning Objective
 
-Use observability signals and chaos experiments to validate system resilience.
+Apply chaos-engineering principles and experiments to validate system resilience.
 
-* [Chaos Engineering](ChaosEngineering/README.md)
+## Integrity Packet
+
+State the hypothesis and safety boundaries for each experiment, then preserve failure evidence, recovery results, open
+risks, and verification of AI-assisted experiment design.
+
+## Topics This Week
+
+* [Chaos Engineering](1%20Chaos%20Engineering/README.md)

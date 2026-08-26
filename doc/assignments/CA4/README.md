@@ -2,6 +2,15 @@
 
 **Goal:** Extend your end-to-end pipeline across two or more sites/clouds, ensuring secure connectivity, seamless data flow, and resilience under failure.
 
+## Individual Project and Deliverables
+
+CA4 is an individual assignment. Build, document, and present your own system. There is no team presentation, formal
+proposal, or separate paper. Your repository documentation, Integrity Packet, architecture diagram, runbook, and demo
+constitute the written and presentation deliverables.
+
+The reference-stack selection made at the start of CA0 serves as the project planning decision. CA4 should extend that
+same stack unless you clearly document and justify a necessary change.
+
 ---
 
 ## Integrity Packet Requirement
@@ -37,6 +46,7 @@ Implement one connectivity model and describe it clearly:
 **Key Deliverables:**
 - Config snippets or CLI commands to establish connectivity
 - Verification steps (ping, curl across sites, service mesh health)
+- A documented REST endpoint for pipeline control or data retrieval, including its location, access path, and security controls
 
 ---
 
@@ -74,7 +84,8 @@ Implement one connectivity model and describe it clearly:
 2. **Runbook**
     - Steps for bring-up, tear-down, and failure recovery (include commands and troubleshooting tips).
 3. **Demo Video**
-    - End-to-end data flow across sites and resilience drill.
+    - End-to-end data flow across sites, a successful REST request and response, and the resilience drill.
+    - Host the video externally and submit its link as described in the [assignment submission instructions](../README.md#submission-instructions).
 4. **README.md**
     - Overview of topology, connectivity method, deployment instructions, and any deviations from CA2.
 5. **Integrity Packet**
@@ -84,13 +95,15 @@ Implement one connectivity model and describe it clearly:
 
 ## How You Will Be Graded
 
-- **Design & Architecture** (25%)  
+- **Design & Architecture** (20%)
   Clarity of topology choice, diagram accuracy, and rationale.
-- **Connectivity & Security** (20%)  
-  Proper VPN/mesh/tunnel configuration, encrypted traffic, minimal open ports.
-- **Deployment Automation** (20%)  
+- **Connectivity & Security** (15%)
+  Proper VPN/mesh/tunnel configuration, encrypted traffic, minimal open ports, and secure reachability of the required REST endpoint.
+- **Deployment Automation** (15%)
   Ease of deploy/teardown, parameterization, and use of multi-site settings.
 - **Resilience & Runbooks** (25%)  
   Effectiveness of failure drill, recovery steps, and quality of runbook documentation.
 - **Documentation & Usability** (10%)  
   Completeness of README, clarity of instructions, and demo video quality.
+- **Integrity Packet (CLO7)** (15%)
+  Clear multi-site and resilience claims, supporting evidence, assumptions, recovery validation, and documented verification of AI-assisted work.

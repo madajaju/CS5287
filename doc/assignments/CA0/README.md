@@ -10,6 +10,18 @@ Include an Integrity Packet with CA0. It should capture the claim you are making
 
 ---
 
+## Recommended Reading
+
+The following Week 2 resources are companion guides for the pub/sub portion of CA0:
+
+- [Message Brokers Overview](../../Week%202/8%20Message%20Brokers/README.adoc)
+- [Apache Kafka Primer](../../Week%202/9%20Kafka/README.md)
+
+Read both before selecting or configuring the pipeline's pub/sub hub. If you choose a Kafka alternative, use the
+messaging patterns in these guides to evaluate and document the equivalent behavior.
+
+---
+
 ## What You Must Do
 
 0. **Document your software stack**
@@ -18,7 +30,7 @@ Include an Integrity Packet with CA0. It should capture the claim you are making
     - This reference stack will be the one you use through the course. It is your choice. Choose wisely.
 
 1. **Environment Provisioning**
-    - Choose a cloud provider (Chameleon, AWS, Azure, GCP, on-prem).
+    - Choose a cloud provider or an on-premises environment (for example, AWS, Azure, or GCP).
     - Create 3–4 VMs (≈2 vCPU, 4 GB RAM each), noting region, machine type, network/subnet.
     - **Record** VM names, IPs, and any provider defaults.
 
@@ -33,6 +45,8 @@ Include an Integrity Packet with CA0. It should capture the claim you are making
     - Create topics/queues, configure producer → broker → processor → DB flow.
     - Push sample messages and verify they appear in the database.
     - Capture at least one end-to-end test log or screenshot of successful records.
+    - Expose at least one documented REST endpoint for pipeline control or data retrieval.
+    - Demonstrate a successful request and response from the REST endpoint.
 
 4. **Security Hardening**
     - Disable password login; enforce SSH key authentication only.
@@ -47,19 +61,20 @@ Include an Integrity Packet with CA0. It should capture the claim you are making
     - **Integrity Packet** documenting claims, evidence, assumptions, AI assistance, and validation results.
     - **Network Diagram** showing subnets/CIDRs, open ports, and trust boundaries.
     - **Configuration Summary** table: component name, image/version, host, port.
-    - **Demo Video** (1–2 minutes): recording of you running the producer, observing Kafka, processor, and verifying a DB entry.
+    - **Demo Video** (1–2 minutes): recording of you running the producer, observing Kafka and the processor, and verifying a database entry. Host the video externally and submit its link as described in the [assignment submission instructions](../README.md#submission-instructions).
     - **Screenshots** of critical milestones (VM creation, service status, security settings).
 
 ---
 
 ## How You Will Be Graded
 
-- **Correctness & Completeness** (15%): all four pipeline stages installed, wired, and verified.
+- **Correctness & Completeness** (15%): all four pipeline stages and the required REST endpoint are installed, wired, documented, and verified.
 - **Security Controls** (15%): SSH key only, minimal open ports, non-root containers.
-- **Documentation & Diagrams** (30%): clear README, up-to-date network diagram, config table.
+- **Documentation & Diagrams** (15%): clear README, up-to-date network diagram, config table.
 - **Demo Quality** (5%): concise, shows full data flow.
 - **Cloud-Modality Execution** (25%): proper use of chosen provider’s console or CLI.
 - **Reproducibility & Clarity** (10%): another student could follow your README to rebuild.
+- **Integrity Packet (CLO7)** (15%): clear claims, evidence, assumptions, validation results, and documented verification of AI-assisted work.
 
 ---
 

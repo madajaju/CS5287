@@ -18,7 +18,7 @@ Include an Integrity Packet with CA1. Capture the claims your automation makes, 
 2. **Idempotent Provisioning**
     - Define VM instances (count, size, region) in code.
     - Declare network/subnet, security groups/firewall rules.
-    - Install packages and services (Kafka, ZooKeeper, MongoDB/CouchDB, processor container, producer containers).
+    - Install your reference-stack components (for example, your selected pub/sub hub, database, processor, and producers).
     - Ensure repeated runs do not produce drift.
 
 3. **Parameterization & Flexibility**
@@ -38,7 +38,9 @@ Include an Integrity Packet with CA1. Capture the claims your automation makes, 
         1. Produce a sample event.
         2. Observe Kafka topic ingestion.
         3. Verify the processor container consumes and writes to the database.
+        4. Send a request to the required REST endpoint and verify its response.
     - Capture logs or screenshots of each stage.
+    - Provision and configure the REST interface through code; it must not depend on undocumented manual setup.
 
 7. **Documentation & Deliverables**
     - **Repository**: Include all IaC code and a top-level `README.md`.
@@ -56,18 +58,20 @@ Include an Integrity Packet with CA1. Capture the claims your automation makes, 
 
 ## How You Will Be Graded
 
-- **Idempotency & Reproducibility** (25%)  
+- **Idempotency & Reproducibility** (20%)
   Deployment can be run multiple times with consistent results; destroy leaves no remnants.
 - **Security & Secret Management** (15%)  
   No secrets in code; use a vault or secret manager properly.
 - **Pipeline Correctness** (20%)  
-  Kafka broker, processor, producers, and DB all deployed and correctly wired with smoke-test proof.
-- **Documentation & Ease of Use** (25%)  
+  Kafka broker, processor, producers, DB, and the required REST endpoint are deployed and correctly wired with smoke-test proof.
+- **Documentation & Ease of Use** (15%)
   Clear README, parameter descriptions, and simple deploy/destroy instructions.
 - **Cloud-Modality Execution** (10%)  
   Proper use of provider-specific features (modules, providers, resource types).
 - **Automation Quality** (5%)  
   Code readability, modularity, and appropriate abstraction of variables.
+- **Integrity Packet (CLO7)** (15%)
+  Clear automation claims, supporting run evidence, assumptions, validation, and documented verification of AI-assisted work.
 
 ---
 

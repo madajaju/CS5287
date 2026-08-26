@@ -2,17 +2,21 @@
 
 ## Learning Objective
 
-Connect systems, networking, and security basics to cloud infrastructure behavior.
+Connect systems, networking, security basics, and integrity-packet evidence collection to cloud behavior.
 
 ## Integrity Packet
 
 Continue the Integrity Packet with evidence from system, networking, and security exercises. Capture commands, outputs, assumptions, and any AI-generated suggestions you verify or discard.
 
-Topics this week
-* [Operating_Systems_and_Networks](1_Operating_Systems_and_Networks/README.adoc)
-* [Processs_Management](2_Processs_Management/README.adoc)
-* [Memory_Management](3_Memory_Management/README.adoc)
-* [Nuts_and_Bolts_View_of_the_Internet](4_Nuts_and_Bolts_View_of_the_Internet/README.adoc)
-* [Internet_Architecture](5_Internet_Architecture/README.adoc)
-* [Layered_Approach](6_Layered_Approach/README.adoc)
-* [Important_Considerations](7_Important_Considerations/README.adoc)
+## Topics This Week
+
+* [Operating Systems and Networks](1%20Operating%20Systems%20and%20Networks/README.adoc)
+* [Process Management](2%20Process%20Management/README.adoc)
+* [Memory Management](3%20Memory%20Management/README.adoc)
+* [Nuts-and-Bolts View of the Internet](4%20Nuts%20and%20Bolts%20View%20of%20the%20Internet/README.adoc)
+* [Internet Architecture](5%20Internet%20Architecture/README.adoc)
+* [Layered Approach](6%20Layered%20Approach/README.adoc)
+* [Important Considerations](7%20Important%20Considerations/README.adoc)
+* [Message Brokers Overview](8%20Message%20Brokers/README.adoc)
+* [Apache Kafka Primer](9%20Kafka/README.md)
+* [References and Source Acknowledgments](References.md)

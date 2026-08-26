@@ -1,0 +1,92 @@
+﻿= Operating Systems and Networks
+:revealjsdir: https://cdn.jsdelivr.net/npm/reveal.js@5
+:revealjs_theme: white
+:revealjs_controls: true
+:revealjs_slideNumber: true
+:imagesdir: ..
+:icons: font
+:sectnums: false
+:source-highlighter: highlightjs
+
+
+  # Operating Systems and Networks
+
+Video: link:https://youtu.be/20nYpzybp14[https://youtu.be/20nYpzybp14]
+
+---
+
+
+== Source Acknowledgment
+
+The operating-systems material is adapted from Silberschatz, Galvin, and Gagne. The networking material is adapted
+from Kurose and Ross. Additional explanations and figures have been added for this course. Full citations appear in
+the reference list at the end of this lesson.
+
+---
+
+
+== Overview of Operating Systems
+
+---
+
+
+== How a Modern Computer Works
+
+* How a Modern Computer Works
+
+image::page_8_img_3.png[page_8_img_3.png]
+
+---
+
+
+== Traditional Computing Resources
+
+* How to manage all these resources?
+* How to share these with the applications that need them?
+
+image::page_9_img_3.png[page_9_img_3.png]
+
+---
+
+
+== What is an Operating System
+
+* A program that acts as an intermediary between a user of a computer and the computer hardware
+* Operating system goals
+    * Execute user programs and make solving user problems easier
+    * Make the computer system convenient to use
+    * Use the computer hardware in an efficient manner
+
+image::page_10_img_3.png[page_10_img_3.png]
+
+---
+
+== Operating System Definition
+
+* OS is a resource allocator.
+    * Manages all resources
+    * Decides between conflicting requests for efficient and fair resource use
+* OS is a control program.
+    * Controls execution of programs to prevent errors and improper  use of the computer
+
+---
+
+
+== Common Functions of Interrupts
+
+- Interrupt transfers control to the interrupt service routine generally,
+through the interrupt vector, which contains the addresses of all
+the service routines.
+- Interrupt architecture must save the address of the interrupted instruction.
+- Incoming interrupts are disabled while another interrupt is being processed to prevent a lost interrupt.
+- A trap is a software -generated interrupt caused either by an error or a user request.
+- An operating system is interrupt driven.
+
+---
+
+== References
+
+* Abraham Silberschatz, Peter B. Galvin, and Greg Gagne. _Operating System Concepts_. 10th ed., Wiley, 2018.
+* James F. Kurose and Keith W. Ross. _Computer Networking: A Top-Down Approach_. 6th ed., Pearson, 2012.
+
+

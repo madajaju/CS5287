@@ -1,0 +1,346 @@
+[
+  {
+    "slide": 1,
+    "topic": "AI as a Thinking Partner in Software Development",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Welcome to our lecture on AI as a Thinking Partner in Software Development. Today, we'll explore how AI can assist in engineering design while emphasizing that ultimate responsibility lies with the engineers making those decisions."
+      }
+    ]
+  },
+  {
+    "slide": 2,
+    "topic": "Introduction",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Let's start by framing our discussion around AI as a collaborative tool and the crucial aspect of ownership in design decisions. We'll illustrate these points with a scenario involving a publish function for a podcast episode."
+      },
+      {
+        "role": "student",
+        "text": "Can you give an example of how that might go wrong?"
+      },
+      {
+        "role": "teacher",
+        "text": "Sure! Imagine a student asks the AI to improve the publish function, and while the code provided looks clean and passes a simple test, it doesn't account for situations where two users might publish the same episode simultaneously."
+      }
+    ]
+  },
+  {
+    "slide": 3,
+    "topic": "Key Concept: AI as Draft",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "A key idea here is that AI outputs should be viewed as proposed artifacts. They require careful checking before being put to use. This is important because fluent AI responses can create a false sense of confidence, making us overlook the need for a robust verification workflow."
+      },
+      {
+        "role": "student",
+        "text": "So, you're saying that even if the AI gives a good-looking answer, we still have to verify it ourselves?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! This is crucial because the AI might not understand hidden constraints or the specific context of your project."
+      }
+    ]
+  },
+  {
+    "slide": 4,
+    "topic": "Productive AI Use",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "When we think about productive use of AI, we're looking at how it can expand our options in the design process. This means asking AI for alternatives, critiques, and insights while avoiding turning it into just an answer machine. Prompts should encourage consideration of risks and strategies for validation."
+      },
+      {
+        "role": "student",
+        "text": "Right, like asking the AI to point out weaknesses in its own suggestions?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! It’s about creating a dialogue where the AI challenges your thinking rather than just providing solutions."
+      }
+    ]
+  },
+  {
+    "slide": 5,
+    "topic": "AI Failure Modes",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Let's discuss AI failure modes, which are the incorrect, incomplete, or misleading outputs we can expect. Understanding these predictable failures is critical because it allows us to deliberately analyze and avoid issues such as hallucinations or incorrect assumptions about state."
+      },
+      {
+        "role": "student",
+        "text": "What are some common examples of those failure modes?"
+      },
+      {
+        "role": "teacher",
+        "text": "Well, one example is when the AI generates code that looks professional but misses crucial constraints, leading to major issues in production."
+      }
+    ]
+  },
+  {
+    "slide": 6,
+    "topic": "Concurrency Blind Spot",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "AI often operates under the assumption of single-threaded execution. However, we need to focus on systems that can fail when operations occur simultaneously. This includes issues like race conditions and lost updates, which is why reviewing for shared state and interleavings is vital."
+      },
+      {
+        "role": "student",
+        "text": "Wait… so AI might not handle situations where multiple processes are working on the same data?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! If a design doesn't account for concurrent execution, it can lead to critical failures, such as executing the same function multiple times."
+      }
+    ]
+  },
+  {
+    "slide": 7,
+    "topic": "Individual Integrity Packet",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "An important tool in our process is the Individual Integrity Packet. This document tracks how you utilize AI, evaluate its contributions, and take ownership of the final decisions. It distinguishes between assisted learning and outsourcing by capturing prompts, critiques, and evidence."
+      },
+      {
+        "role": "student",
+        "text": "How does that help me in my assignments?"
+      },
+      {
+        "role": "teacher",
+        "text": "It helps you document your thought process and the contributions of AI, ensuring that you can validate your decisions and reflect on your learning."
+      }
+    ]
+  },
+  {
+    "slide": 8,
+    "topic": "AI-Assisted Workflow",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "The AI-assisted workflow includes several stages: prompting for drafts or critiques, reviewing AI outputs, running tests, and validating claims against sources. Remember, the process isn’t complete until you can defend your revised work with appropriate evidence."
+      },
+      {
+        "role": "student",
+        "text": "So, it sounds like just getting the AI's output isn't the end of the line?"
+      },
+      {
+        "role": "teacher",
+        "text": "Correct! You have to go beyond the AI's output to ensure it's reliable and properly integrated."
+      }
+    ]
+  },
+  {
+    "slide": 9,
+    "topic": "Worked Example",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Let's look at a worked example. We have a publish function for a podcast episode that appears to work at first glance. However, it operates under a hidden assumption that no other worker modifies the episode during operations, which can lead to issues."
+      },
+      {
+        "role": "student",
+        "text": "What kind of issues are we talking about?"
+      },
+      {
+        "role": "teacher",
+        "text": "If two workers try to publish the same episode at the same time, they could both assume the status is still 'draft' and end up causing problems like duplicate notifications."
+      }
+    ]
+  },
+  {
+    "slide": 10,
+    "topic": "Failure Scenario",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Imagine two workers both attempting to publish the same episode, leading to duplicated notifications. In this scenario, the AI-generated implementation fails since it does not properly manage state transitions between workers."
+      },
+      {
+        "role": "student",
+        "text": "So, it's like the AI didn't think through the real-world implications of the code?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! The AI-generated code needs to consider concurrency beforehand to avoid such failures."
+      }
+    ]
+  },
+  {
+    "slide": 11,
+    "topic": "Safer Design Direction",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "To address this, we propose a safer design that ensures only the successful operation affects side effects. This version requires an expected version parameter, helping to avoid race conditions and ensuring that only one notification is sent."
+      },
+      {
+        "role": "student",
+        "text": "So, if I understand correctly, you're adding a check to make sure that only one update goes through?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! By tying the side effect to a successful state transition, you reduce the risk of duplicated operations."
+      }
+    ]
+  },
+  {
+    "slide": 12,
+    "topic": "Integrity Packet Entry",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "In the Integrity Packet, summarize what the AI suggested, critique its lack of consideration for concurrency, and provide evidence from tests that show the original approach led to duplicates. Also, document how the design was revised to ensure atomic transitions and idempotent notifications."
+      },
+      {
+        "role": "student",
+        "text": "What if I can't find any duplicates in my tests?"
+      },
+      {
+        "role": "teacher",
+        "text": "Then it's essential to document that as well. Ensure you're testing under conditions that might reveal those issues."
+      }
+    ]
+  },
+  {
+    "slide": 13,
+    "topic": "Failure Modes and Anti-Patterns",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "As we analyze failure modes and anti-patterns, we identify common symptoms like producing valid code that violates invariants, inventing APIs, omitting necessary behaviors, or students being unable to explain AI outputs. Each symptom provides a chance for critical learning and improvement."
+      },
+      {
+        "role": "student",
+        "text": "Got it. So, by recognizing these symptoms, I can adjust my approach and learn more effectively?"
+      },
+      {
+        "role": "teacher",
+        "text": "Precisely! Identifying where things go wrong is a key part of improving your work."
+      }
+    ]
+  },
+  {
+    "slide": 14,
+    "topic": "Trade-Off Analysis",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "In our trade-off analysis, we see various approaches to AI use: for brainstorming, code drafting, idea generation, and critique. Each approach has its own strengths and weaknesses, which helps us understand when it's appropriate to rely on AI in the development process."
+      },
+      {
+        "role": "student",
+        "text": "And I should choose the approach based on my specific needs for the project?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! Knowing when and how to integrate AI into your workflow is essential."
+      }
+    ]
+  },
+  {
+    "slide": 15,
+    "topic": "Trade-Off Analysis",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "For practical applications, think about how you could ask AI to generate various object models and rate their concurrency risks. Document all your interactions with AI in your Integrity Packet, noting which suggestions you accept or reject, and run tests to verify AI-generated claims."
+      },
+      {
+        "role": "student",
+        "text": "This sounds like a lot of documentation!"
+      },
+      {
+        "role": "teacher",
+        "text": "It is, but that documentation is crucial for ensuring you can back up your design decisions later on."
+      }
+    ]
+  },
+  {
+    "slide": 16,
+    "topic": "Practical Applications",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "This lecture connects to the assignments A0 and A1 where you'll need to demonstrate AI's role in supporting your reasoning. The key is to show that while you can use AI, it must not replace your own critical thinking and understanding."
+      },
+      {
+        "role": "student",
+        "text": "Can I use more than one AI tool for the assignments?"
+      },
+      {
+        "role": "teacher",
+        "text": "Absolutely! Just remember to document how each tool contributed to your thought process."
+      }
+    ]
+  },
+  {
+    "slide": 17,
+    "topic": "Assignment Connection",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Let's engage in a discussion about the differences between AI output and actual engineering evidence. Also, why do you think concurrency is such a common blind spot in AI-generated code? Consider your experiences and insights."
+      },
+      {
+        "role": "student",
+        "text": "I guess AI just doesn't understand multitasking well, right?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! It's important we recognize that AI's reasoning may not align with real-world multi-threaded scenarios."
+      }
+    ]
+  },
+  {
+    "slide": 18,
+    "topic": "Discussion",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "To summarize, while AI can greatly accelerate our thinking processes, it cannot be relied upon for correctness. It's crucial that we verify AI outputs against system constraints and document our thought process in a visible and validated manner."
+      },
+      {
+        "role": "student",
+        "text": "So, it's about using AI to enhance our work but not letting it take over?"
+      },
+      {
+        "role": "teacher",
+        "text": "Exactly! You want to leverage AI while ensuring that your understanding and verification remain central."
+      }
+    ]
+  },
+  {
+    "slide": 19,
+    "topic": "Summary",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "For further reading, I highly recommend exploring the AI Usage Log Template and the Integrity Packet Template. These resources will deepen your understanding of responsible AI use in software engineering and provide templates for your own documentation."
+      },
+      {
+        "role": "student",
+        "text": "I'll make sure to check those out!"
+      }
+    ]
+  },
+  {
+    "slide": 20,
+    "topic": "Further Reading",
+    "dialogue": [
+      {
+        "role": "teacher",
+        "text": "Recommended resources include the AI Usage Log Template and the Integrity Packet Template, among others related to AI-assisted software engineering verification and best practices."
+      },
+      {
+        "role": "student",
+        "text": "Thank you for the resources! I'm looking forward to applying this in my assignments."
+      }
+    ]
+  }
+]

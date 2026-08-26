@@ -1,0 +1,97 @@
+[
+  {
+    "slide": 1,
+    "topic": "AI as a Thinking Partner in Software Development",
+    "text": "Welcome everyone. The key idea in this lecture is that AI can help you think faster, but it cannot replace engineering judgment. We will use a simple publishing example to explore why fluent AI output is often only a draft, not evidence. By the end, you should be able to spot common failure modes, think about concurrency risks, and explain how your own design decisions were verified."
+  },
+  {
+    "slide": 2,
+    "topic": "Introduction",
+    "text": "Let’s start with the big picture. AI is useful as a collaborative tool, but ownership of the final design still belongs to the engineer. A common mistake is to treat a polished answer as if it were already proven. We will use the publish function scenario to show how something that looks reasonable can still fail once real concurrency enters the picture."
+  },
+  {
+    "slide": 3,
+    "topic": "Key Concept: AI as Draft",
+    "text": "The key idea here is that AI output is a proposed artifact, not evidence. It may be a good starting point for code, design, or testing ideas, but it has to be checked before use. This matters because confident language can create false trust. A strong workflow always asks, what claim is being made, and what proof do we have that it is true?"
+  },
+  {
+    "slide": 4,
+    "topic": "Productive AI Use",
+    "text": "Productive AI use means expanding your thinking, not outsourcing it. Use AI to generate alternatives, critique assumptions, and surface edge cases. But do not use it like an answer machine. The better prompt asks for risks, tradeoffs, and validation steps, because that pushes the model to help with reasoning rather than just producing a quick snippet."
+  },
+  {
+    "slide": 5,
+    "topic": "AI Failure Modes",
+    "text": "A common mistake is assuming that a fluent answer is a correct one. AI can produce incorrect, incomplete, or misleading output, including hallucinated APIs and missing failure behavior. The practical lesson is to deliberate on predictable failure: ask what the model might have assumed, what it could not know about your system, and what must be checked against documentation or tests."
+  },
+  {
+    "slide": 6,
+    "topic": "Concurrency Blind Spot",
+    "text": "This is one of the most important risks in the lecture. AI-generated reasoning often assumes operations happen one at a time, which is not how real systems behave. When multiple workers overlap, a simple check-before-save flow can produce race conditions, lost updates, or duplicate side effects. This matters because concurrency bugs are hard to reproduce and often survive happy-path testing."
+  },
+  {
+    "slide": 7,
+    "topic": "Individual Integrity Packet",
+    "text": "The Individual Integrity Packet is where responsible AI use becomes visible. It should record what the AI suggested, what you accepted or rejected, what evidence you gathered, and how you validated the final design. A transcript alone is not enough. What matters is showing your reasoning, your critique, and the proof that you own the work."
+  },
+  {
+    "slide": 8,
+    "topic": "AI-Assisted Workflow",
+    "text": "Let’s pause here and think about the workflow as a discipline. First you prompt AI for a draft or critique, then you review it as a human, then you run tests, validate claims against sources, and analyze shared state and interleavings. Only after that do you revise the design, document the process in the Integrity Packet, and prepare to defend the final work. The tradeoff is clear: structure takes time, but it prevents shallow paste-and-pray development."
+  },
+  {
+    "slide": 9,
+    "topic": "Worked Example",
+    "text": "Now we move into the publish function example. Imagine you are building a system that publishes an episode. The naive implementation looks clean and may even pass a simple test, but it quietly assumes that nothing else is changing the episode at the same time. That hidden assumption is exactly where AI-generated code can mislead you."
+  },
+  {
+    "slide": 10,
+    "topic": "Failure Scenario",
+    "text": "Here is the uncomfortable failure. Two workers read the same draft episode, both decide it is publishable, and both send notifications. From the operator’s point of view, everything looked fine until subscribers got duplicate messages. This failure was hidden in the baseline version because the code only tested the happy path, not overlapping execution. Good evidence would include a concurrency test or a log that captures the duplicate transition."
+  },
+  {
+    "slide": 11,
+    "topic": "Safer Design Direction",
+    "text": "The protected property here is that only one worker should be able to publish the episode and trigger side effects. The mechanism is an atomic state transition, followed by an idempotent notification step. That is better than a simple if-statement because it ties the side effect to the winning transition. The tradeoff is complexity: you now depend on stronger persistence support and careful implementation of idempotency."
+  },
+  {
+    "slide": 12,
+    "topic": "Integrity Packet Entry",
+    "text": "A good Integrity Packet entry makes the reasoning traceable. You would record the AI’s simple check-then-save suggestion, note that it failed to discuss concurrency and notifications, document the duplicate behavior you observed in testing, and explain the revision to an atomic transition. This is the kind of artifact that shows both learning and ownership, which is what instructors and reviewers need to see."
+  },
+  {
+    "slide": 13,
+    "topic": "Failure Modes and Anti-Patterns",
+    "text": "Let’s name the anti-patterns directly. AI may produce code that compiles but still violates invariants. It may invent APIs or citations. It may omit failure behavior entirely. And sometimes the biggest problem is that the student cannot explain the output afterward. The lesson is that logging suggestions without critique is not enough; you need validation, rejection, and revision."
+  },
+  {
+    "slide": 14,
+    "topic": "Trade-Off Analysis",
+    "text": "The key idea in trade-off analysis is that AI use changes depending on the task. For brainstorming, AI expands options quickly, but the answers are generic. For code drafts, it speeds implementation, but it may miss local constraints. For test ideas, it can surface edge cases, though some may be irrelevant. The disciplined choice is not to avoid AI entirely, but to match the use to the risk and keep human review in control."
+  },
+  {
+    "slide": 15,
+    "topic": "Practical Applications",
+    "text": "In practice, use AI to help reason about object models and concurrency risks, then explicitly mark what you accepted and rejected. Run tests for the claims the AI makes, and document all of that in the Integrity Packet. This matters because the assignment is not just about getting working code; it is about demonstrating a verifiable process of thought and correction."
+  },
+  {
+    "slide": 16,
+    "topic": "Assignment Connection",
+    "text": "This lecture connects directly to A0 and A1. In those assignments, you are expected to use AI to assist reasoning, not to replace it. What you must demonstrate is mastery through revisions, critiques, and evidence. In an oral defense, you should be able to explain why you accepted certain suggestions, why you rejected others, and what proof supports your final design."
+  },
+  {
+    "slide": 17,
+    "topic": "Discussion",
+    "text": "Let’s use a couple of discussion questions to pull this together. What is the difference between AI output and engineering evidence? And why is concurrency such a common blind spot in AI-generated code? If you can answer those clearly, you are already moving from passive consumption toward responsible engineering judgment."
+  },
+  {
+    "slide": 18,
+    "topic": "Summary",
+    "text": "The summary is simple but important: AI accelerates thought, but it does not provide correctness. You still need verification against constraints, tests, and documentation. You also need visible AI use that shows critique and revision, not just transcription. The professional mindset to remember is that AI can help you think, but engineering judgment must decide."
+  },
+  {
+    "slide": 19,
+    "topic": "Further Reading",
+    "text": "For follow-up, use the AI Usage Log Template and the Integrity Packet Template to structure your work. Those artifacts help you capture prompts, critiques, evidence, and final decisions in a form that can be reviewed later. If you continue on to the next assignments, keep this workflow in mind, because the same habits will matter in testing, concurrency, and code defense."
+  }
+]

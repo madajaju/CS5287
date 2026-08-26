@@ -12,6 +12,15 @@ Include an Integrity Packet with CA2. It should track the design claims for the 
 
 ## What You Must Do
 
+### Research and Preparation
+
+The course repository provides the architectural context for this assignment, but it is not a complete implementation
+guide. Before building the stack, research Kubernetes StatefulSets, PersistentVolumeClaims (PVCs), Services,
+ConfigMaps, Secrets, and Role-Based Access Control (RBAC), or the equivalent Docker Swarm concepts. Use your GenAI
+tools to explore these topics and troubleshoot your design, then verify the guidance against the official Kubernetes
+or Docker documentation. Record consequential AI guidance, what you verified, and what you accepted or rejected in
+your Integrity Packet.
+
 1. **Platform Provisioning**
     - Stand up a Kubernetes cluster (managed or self-hosted) or a Docker Swarm with at least 3 nodes.
     - Record cluster type/version, node roles, namespaces (K8s) or overlay networks (Swarm).
@@ -28,6 +37,7 @@ Include an Integrity Packet with CA2. It should track the design claims for the 
       • **Processor**: Deployment, ConfigMap for settings, Secret for credentials, Service (ClusterIP).  
       • **Producers**: Deployment/Job/CronJob (for one-off replay) or Swarm “replicas” setting.
     - Define `ConfigMaps`/`Secrets` for configuration and credentials.
+    - Declare and expose at least one REST endpoint for pipeline control or data retrieval.
     - Enforce network isolation:  
       • K8s `NetworkPolicy` restricting traffic between namespaces/services.  
       • Swarm overlay networks scoped to required services.
@@ -45,6 +55,7 @@ Include an Integrity Packet with CA2. It should track the design claims for the 
 6. **Validation & Teardown**
     - Provide a single command (or Makefile target) to apply the full stack and another to delete it.
     - After deployment, run a quick smoke test: send a sample event, inspect Kafka topic, observe processor logs, and verify a record in the database.
+    - Include a successful request and response from the REST endpoint in the smoke-test evidence.
 
 7. **Documentation & Deliverables**
     - **Directory Structure**: all manifests/stack files in `CA2/` with clear names.
@@ -63,20 +74,23 @@ Include an Integrity Packet with CA2. It should track the design claims for the 
 
 ## How You Will Be Graded
 
-- **Declarative Completeness** (25%)  
-  All four pipeline stages defined purely in manifest/compose files.
+- **Declarative Completeness** (20%)
+  All four pipeline stages and the required REST endpoint are defined and exposed purely through manifest/compose files.
 
-- **Security & Isolation** (20%)  
+- **Security & Isolation** (15%)
   Proper use of Secrets, NetworkPolicies (K8s) or overlay networks (Swarm), minimal published ports.
 
 - **Scaling & Observability** (20%)  
   Demonstrated replica/HPA scaling with metrics or latency comparison.
 
-- **Documentation & Usability** (25%)  
+- **Documentation & Usability** (20%)
   Clear README, simple deploy/destroy steps, validation instructions.
 
 - **Platform Execution** (10%)  
   Correct use of Kubernetes or Swarm primitives, clean resource cleanup.
+
+- **Integrity Packet (CLO7)** (15%)
+  Clear manifest and scaling claims, supporting test evidence, assumptions, validation, and documented verification of AI-assisted work.
 
 ---
 

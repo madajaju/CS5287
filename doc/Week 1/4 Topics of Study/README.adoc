@@ -13,63 +13,47 @@
 
 ---
 
+== Course Journey
 
-== Cloud Management
-
-
-image::./page44_img3.png[image]
-
-Source: link:http://www.virtualizationpractice.com[http://www.virtualizationpractice.com]
-
----
-
-
-== Virtualization and Hypervisors
-
-
-image::./Virtualization.png[Virtualization.png]
-
-
-Source : link:http://www.virtzone.net[http://www.virtzone.net/]
-link:http://ecnmag.com[http://ecnmag.com]
+- Build one reference stack across CA0–CA4
+- Move from manual deployment to infrastructure as code and orchestration
+- Add scaling, observability, security, and resilience
+- Extend the system across multiple sites or clouds
+- Use GenAI throughout, verify its output, and preserve evidence in the Integrity Packet
 
 ---
 
+== Weeks 1–4: Foundations to Containers
 
-== APIs to Securely Access Cloud
-
-
-image::./page46_img3.jpeg[image]
-
-Source: link:http://www.porticor.com/wp-content/uploads/2010/10/CloudSecurityStack-1024x5771.jpg[http://www.porticor.com/wp-content/uploads/2010/10/CloudSecurityStack-1024x5771.jpg]
-
----
-
-
-== Data Center as a Building Block
-
-- Previously (e.g., dot-com era)
-    - Smaller in size, but made up of special purpose, expensive hardware
-    - Network that was deep and narrow: a small failure and the data center
-    could not be accessed
-    - Predominantly meant for enterprise computing
-- Today
-    - Deployment of cheap, commodity hardware
-    - Geographically distributed, i.e., multiple data centers
-    - Network that is thin and wide—ability to withstand failures better while
-    keeping the system operational
-    - Wide variety of applications hosted (e.g., Google search)
+- *Week 1:* Cloud computing, cloud enablers, opportunities, and REST
+- *Week 2:* Operating systems, processes, memory, networking, message brokers, and Kafka
+- *Week 3:* Virtualization, IaaS, OpenStack, infrastructure as code, Ansible, and Terraform
+- *Week 4:* Containers, container networking and orchestration, Docker, and Docker Swarm
 
 ---
 
+== Weeks 5–8: Orchestration and Reliability
 
-== Typical Networking Inside Data Centers
-
-
-image::./page48_img3.jpeg[image]
-
-Source: link:http://enterprise.huawei.com/[http://enterprise.huawei.com/]
+- *Week 5:* Kubernetes architecture, networking, and service mesh
+- *Week 6:* Cloud load balancing, Kubernetes scheduling, and scaling
+- *Week 7:* Observability in the cloud, SRE components, and tail latency
+- *Week 8:* Chaos engineering
 
 ---
 
+== Weeks 9–12: Distributed and AI Workloads
 
+- *Week 9:* Edge computing, overlay VPN, and serverless computing
+- *Week 10:* Data partitioning, sharding, and distributed file systems
+- *Week 11:* MapReduce, Apache Spark, and Apache Ray
+- *Week 12:* GPU architectures, LLM serving, and agentic workflows
+
+---
+
+== Weeks 13–14: Networking and Demonstration
+
+- *Week 13:* Software-defined networking, network functions virtualization, and 5G
+- *Week 14:* Individual final project demonstration and technical defense
+- Defend architecture choices with logs, metrics, tests, and Integrity Packet evidence
+
+---

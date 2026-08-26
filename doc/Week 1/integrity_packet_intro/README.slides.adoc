@@ -1,0 +1,204 @@
+= The Integrity Packet
+Dr. Darren Pulsipher
+:revealjs_theme: white
+:revealjs_slideNumber: true
+:revealjs_hash: true
+:revealjs_width: 1280
+:revealjs_height: 720
+:revealjs_transition: fade
+:customcss: custom.css
+:source-highlighter: highlight.js
+:icons: font
+:stem:
+
+== Opening Narrative
+
+A claim of safety without proof:
+* Successful demo screenshot only.
+* No record of assumptions or failures.
+* What evidence must be preserved?
+
+== Core Concept Overview
+
+* Analyze Integrity Packet as an engineering artifact.
+* Evaluate correctness claims with evidence.
+* Design adaptable Integrity Packet structures.
+* Defend assumptions and validations orally.
+
+== Diagnose Gaps
+
+* Identify gaps in implementation vs evidence.
+
+== Ownership and Responsibility
+
+* **Definition:** Who is responsible?
+* **Importance:** Outsourced judgment in AI and concurrency.
+* **Mechanism:** Records decisions and validations.
+* **Failure mode:** Submission of unexplainable outputs.
+* **Implication:** Explicit and reviewable ownership is essential.
+
+== Evidence-Based Design
+
+* **Definition:** Design claims supported by artifacts.
+* **Importance:** Intent doesn't guarantee correctness.
+* **Mechanism:** Links behavior to defended invariants.
+* **Failure mode:** Reliance on "I think it works."
+* **Implication:** Every claim must reference evidence.
+
+== Assumption Tracking
+
+* **Definition:** Record of dependent conditions.
+* **Importance:** Concurrency issues arise from false assumptions.
+* **Mechanism:** Documented before and after implementation.
+* **Failure mode:** Hidden assumptions surface under pressure.
+* **Implication:** Assumptions must be testable.
+
+== Escalation Path
+
+* **Definition:** Process for unresolved states.
+* **Importance:** Human review needed for ambiguities.
+* **Mechanism:** Defines responses to uncertain states.
+* **Failure mode:** Silent system continuation after uncertainty.
+* **Implication:** Failure handling must be integral.
+
+== System Architecture
+
+[plantuml, target=integrity_packet, format=svg, width=80%]
+----
+@startuml
+
+skinparam shadowing false
+
+rectangle "Correctness Claim" as Claim
+rectangle "Assumptions" as Assumptions
+rectangle "Evidence" as Evidence
+rectangle "Validation Result" as Validation
+rectangle "Statement of\nOwnership" as Ownership
+rectangle "Escalation Path" as Escalation
+rectangle "Design Revision" as Revision
+
+Claim --> Assumptions
+Assumptions --> Evidence
+Evidence --> Validation
+Validation --> Ownership
+Validation --> Escalation
+Escalation --> Revision
+Revision --> Evidence
+@enduml
+----
+
+The Integrity Packet traces claims to evidence: what changes when backed by evidence?
+
+== Worked Example: Problem Setup
+
+In podcasting:
+* Claim: An episode cannot publish until assets are complete.
+
+== Naive Documentation
+
+Ineffective:
+* "System checks asset status before publishing."
+
+== Failure Scenario
+
+Timing issue:
+* Concurrent test starts transcript processing and publishing.
+* Stale state leads to premature publishing.
+
+== Assumption Contradicted
+
+* Assumption of current reads contradicted.
+
+== Improved Integrity Packet Entry
+
+== Recommendation
+
+Use an atomic readiness check before transitioning Episode to PUBLISHED.
+
+== Assumptions
+
+* Publishing requires audio, transcript, artwork, and review approval.
+* Readiness check and status transition must act atomically.
+
+== Evidence
+
+* `evidence/logs/publish_race_before.jsonl`: showed unfitting results.
+* `evidence/logs/publish_race_after.jsonl`: proper rejection captured.
+
+== Validation
+
+* Executed `scripts/run-concurrent-publish-test.sh` with 5 workers, 100 repetitions.
+
+== Ownership
+
+I can explain and validate transitions after failure analysis.
+
+== Failure Modes and Anti-Patterns
+
+* Documentation lacks reasoning.
+* Detection: No record of attempts or revisions.
+* Correction: Document prompts and critiques.
+
+* Unsupported evidence.
+* Detection: Logs do not connect to claims.
+* Correction: Annotate evidence accordingly.
+
+* AI usage disclosed but not critiqued.
+* Detection: Lack of verification results.
+* Correction: Include AI critique assessments.
+
+* Missing escalation protocols.
+* Detection: No post-failure response documented.
+* Correction: Define clear recovery paths.
+
+== Trade-Off Analysis
+
+[cols="1,1,1,1", options="header"]
+|===
+| Approach | Strengths | Weaknesses | When to Use
+| Minimal reflection | Fast to write | Weak defensibility | Not sufficient for course submissions
+| Evidence log only | Captures behavior | Lacks interpretation | Useful as supporting material
+| Structured Integrity Packet | Connects claims and evidence | Requires discipline | Required across assignments
+| AI usage log only | Encourages disclosure | Does not prove correctness | Alongside the packet
+| Oral defense prep | Reveals gaps quickly | Requires time to prepare | Before submission
+|===
+
+== Practical Application
+
+Tomorrow:
+* Create `integrity-packet/individual-integrity-packet.md`.
+* Incorporate sections: recommendation, assumptions, evidence, validation, ownership, escalation.
+* Log AI usage.
+* Write a testable assumption.
+* Capture a screenshot for proof.
+* Link evidence to claims.
+* Prepare for the oral review process.
+
+== Assignment Integration
+
+Supports [A0 - Project Selection, Environment & Integrity Packet](../../../assignments/A0/index.md):
+* Initial packet will be updated through A1-A4.
+* Must show reusability and domain specificity.
+* Evidence of mastery required.
+
+== Validation and Interview Questions
+
+1. Difference between claim and evidence?
+2. Which assumption is most likely to fail under concurrency?
+3. How would a reviewer reproduce validation steps?
+4. Which AI suggestion was rejected and why?
+5. What happens when automated recovery is unsafe?
+6. How does the Integrity Packet alter responsibility?
+7. What evidence is insufficient for concurrency defense?
+
+== Summary
+
+Correctness is argued, not just implemented. The Integrity Packet connects assumptions, behavior, validation, evidence, and ownership—emulating professional engineering practices.
+
+== Further Reading
+
+* [A0 Integrity Packet requirements](../../../assignments/A0/index.md)
+* [Shared Integrity Packet Template](../../../assignments/shared/integrity-packet-template.md)
+* Engineering decision records
+* Incident postmortems and corrective actions
+* "software traceability evidence validation"

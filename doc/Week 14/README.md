@@ -1,7 +1,14 @@
-# Topic This Week
+# Week 14
 
 ## Learning Objective
 
-Shape and present a final project plan with a clear problem, architecture, and milestones.
+Demonstrate and defend the completed final project using architecture, operational evidence, and lessons learned.
 
-* [Final Project](Final%20Project/README.md)
+## Integrity Packet
+
+Use the completed packet to connect final claims to architecture, tests, operational evidence, AI-use decisions, open
+risks, and personal ownership of the work.
+
+## Topics This Week
+
+* [Final Project Demonstration & Technical Defense](1%20Final%20Project/README.md)

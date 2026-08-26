@@ -1,0 +1,185 @@
+= AI as a Thinking Partner in Cloud Computing
+Dr. Darren Pulsipher
+:revealjs_theme: white
+:revealjs_slideNumber: true
+:revealjs_hash: true
+:revealjs_width: 1280
+:revealjs_height: 720
+:revealjs_transition: fade
+:customcss: custom.css
+:source-highlighter: highlight.js
+:icons: font
+:stem:
+
+== Introduction
+
+* AI as a collaborative tool
+* Ownership of cloud architecture and operational decisions
+* Example: Event-driven cloud pipeline
+
+== Key Concept: AI as Draft
+
+* AI output = proposed artifact
+* Must be checked before use
+* Risk of false confidence
+* Need for verification workflow
+
+== Productive AI Use
+
+* Comparing cloud services and architecture options
+* Asking for alternatives and critiques
+* Avoiding AI as an answer machine
+* Prompts should focus on cost, reliability, security, and validation
+
+== AI Failure Modes
+
+* Incorrect, incomplete, or misleading outputs
+* Need to deliberate on predictable failures
+* Examples: invented APIs, stale service limits, and hidden infrastructure assumptions
+
+== Distributed-Systems Blind Spots
+
+* AI often assumes reliable networks and sequential execution
+* Cloud workloads overlap, retry, scale, and fail independently
+* Issues: duplicate events, partial failures, stale state, and cascading failure
+* Review boundaries, shared state, retries, timeouts, and idempotency
+
+== Individual Integrity Packet
+
+* Record of AI usage and corrections
+* Distinguishes learning from outsourcing
+* Contents: prompts, critiques, evidence
+* Must be visible and connected to design
+
+== AI-Assisted Workflow
+
+[plantuml, target=workflow, format=svg, width=80%]
+----
+@startuml
+
+skinparam shadowing false
+
+rectangle "Prompt AI for\ndraft or critique" as Prompt
+rectangle "AI output" as Output
+rectangle "Human review" as Review
+rectangle "Run tests\nand checks" as Tests
+rectangle "Validate claims\nagainst sources" as Sources
+rectangle "Analyze distributed-system\nand cloud risks" as CloudRisks
+rectangle "Revise design" as Revision
+rectangle "Document in\nIntegrity Packet" as IIP
+rectangle "Defend final work" as Defense
+
+Prompt -right-> Output
+Output -right-> Review
+Review --> Tests
+Review --> Sources
+Review --> CloudRisks
+Tests --> Revision
+Sources --> Revision
+CloudRisks --> Revision
+Revision -left-> IIP
+IIP -left-> Defense
+@enduml
+----
+
+== Worked Example
+
+* Problem: Process an event in a cloud pipeline
+* Naive implementation may pass a local test
+* Hidden assumptions: exactly-once delivery and no worker failures
+
+== Failure Scenario
+
+* A broker redelivers an event after a worker timeout
+* Two workers process the same event and duplicate a side effect
+* The proposed design omitted idempotency and retry behavior
+
+== Safer Design Direction
+
+* A design that ties side effects to state transitions
+* Only the operation that wins the transition emits effects
+
+```python
+def process_event(event):
+    if claim_idempotency_key(event.id):
+        result = transform(event.payload)
+        store_result_once(event.id, result)
+        acknowledge(event)
+```
+
+== Integrity Packet Entry
+
+* AI Output Summary: Simple event consumer with no failure handling
+* Critique: Did not discuss retries, duplicate delivery, or partial failure
+* Evidence: Redelivery test produced duplicate output
+* Revision: Add an idempotency key and explicit acknowledgement behavior
+* Validation: Verified one durable result across repeated delivery
+
+== Failure Modes and Anti-Patterns
+
+* AI produces code that compiles but violates invariants
+* Invented APIs or citations
+* Omissions of failure behavior
+* Student inability to explain AI output
+* Logged suggestions without critique
+
+== Trade-Off Analysis
+
+[cols="1,1,1,1", options="header"]
+|===
+| Approach | Strengths | Weaknesses | When to Use
+
+| AI for brainstorming
+| Expands options quickly
+| Generic alternatives
+| Early design exploration
+
+| AI for code draft
+| Speeds implementation
+| Misses constraints
+| Reviewed code units
+
+| AI for test ideas
+| Surfaces edge cases
+| May lack relevance
+| Validation planning
+
+| AI for critique
+| Challenges assumptions
+| Misses domain-specific failures
+| After baseline design
+
+| No AI use
+| Forces independent thought
+| Reduces design exposure
+| When unaided work is needed
+|===
+
+== Practical Applications
+
+* Ask AI to compare cloud architectures and expose operational risks
+* Mark accepted, rejected suggestions
+* Validate claims with documentation, experiments, and observability signals
+* Document in Integrity Packet
+
+== Assignment Connection
+
+* Supports CA0-CA4 and the evolving cloud pipeline
+* Use AI to assist reasoning, not replace it
+* Show mastery through evidence, revisions, and technical defense
+
+== Discussion
+
+* What is the difference between AI output and engineering evidence?
+* Which cloud assumptions are most dangerous to leave unverified?
+
+== Summary
+
+* AI accelerates thought, not correctness
+* Need for verification against constraints
+* Visible and validated AI use is essential
+
+== Further Reading
+
+* link:../../assignments/shared/ai-usage-log-template.md[AI Usage Log Template]
+* link:../../assignments/shared/integrity-packet-template.md[Integrity Packet Template]

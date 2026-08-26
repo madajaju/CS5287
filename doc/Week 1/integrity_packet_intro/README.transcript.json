@@ -1,0 +1,132 @@
+[
+  {
+    "slide": 1,
+    "topic": "The Integrity Packet",
+    "text": "Welcome everyone to our lecture on The Integrity Packet. Today, we'll delve into how documentation and evidence play crucial roles in software engineering, particularly under concurrency."
+  },
+  {
+    "slide": 2,
+    "topic": "Opening Narrative",
+    "text": "Let's start with an opening narrative. Imagine a team that claims their publishing workflow is safe just because their final demo succeeded. When pushed for proof, they provide only a screenshot of that success. They lack a failing baseline, concurrent test output, any record of their assumptions, and they fail to explain what occurs if publishing falters midway. While the system might appear to work, their claim isn't defensible yet. Our focus will be on what evidence must be preserved so that another engineer can confidently trust the design argument."
+  },
+  {
+    "slide": 3,
+    "topic": "Core Concept Overview",
+    "text": "In this section, we'll cover several core concepts. First, we will analyze the Integrity Packet as an engineering artifact. Then, we'll evaluate the correctness claims to see if they're supported by the proper evidence. Following that, we will discuss how to design Integrity Packets that can adapt over various assignments. Finally, we'll work on defending our assumptions and validation processes during an oral examination."
+  },
+  {
+    "slide": 4,
+    "topic": "Diagnose Gaps",
+    "text": "It's essential to learn how to identify gaps in the implementation compared to the evidence provided. Gaps can lead to uncertainties about whether our system behaves as expected, particularly under concurrent conditions."
+  },
+  {
+    "slide": 5,
+    "topic": "Ownership and Responsibility",
+    "text": "Ownership and responsibility are vital to our process. We define this as clearly stating who is responsible for the claims made, the evidence provided, and the final submission. This is especially important in contexts where AI is utilized, as it can obscure judgment. By documenting our decisions, assumptions, validations, and certainties, we ensure explicit and reviewable ownership, which prevents the common failure of submitting plausible outputs that cannot be justified."
+  },
+  {
+    "slide": 6,
+    "topic": "Evidence-Based Design",
+    "text": "Next, let's discuss evidence-based design. Here, a design claim must be substantiated by artifacts, including logs, tests, and traces. This is crucial because we can't assume correctness from mere intent, particularly in concurrent systems. Evidence needs to directly link the system's behavior to the invariants we are defending. A common failure mode is relying on phrases like 'I think it works,' which undermines the validation process."
+  },
+  {
+    "slide": 7,
+    "topic": "Assumption Tracking",
+    "text": "Assumption tracking involves documenting the conditions our design relies upon. Why is this important? Well, many concurrency failures arise from incorrect assumptions regarding order, retries, or ownership. Therefore, we need to write down these assumptions both before we implement and revisit them after we conduct failure tests. Failure to do this often leads to hidden assumptions that only surface under production-like pressure."
+  },
+  {
+    "slide": 8,
+    "topic": "Escalation Path",
+    "text": "The escalation path is a critical element in our documentation. It defines the process for when the system encounters states that automated logic cannot safely resolve. Even well-designed systems require human oversight in ambiguous or unsafe situations. Our Integrity Packet should specify when to halt, alert, retry, compensate, or escalate for human review, rather than allowing the system to proceed silently amidst uncertainty."
+  },
+  {
+    "slide": 9,
+    "topic": "System Architecture",
+    "text": "Now, let's visualize the concept through a simplified architecture. Here, we have several components: the correctness claim, assumptions, evidence, validation results, ownership statements, escalation paths, and design revisions. This flow illustrates how integrity is maintained from claims through to the evidence that supports them, highlighting the importance of each component."
+  },
+  {
+    "slide": 10,
+    "topic": "Worked Example: Problem Setup",
+    "text": "To put this into practice, let's look at a worked example from the podcasting domain. In this scenario, a student claims that an episode cannot be published unless all assets are complete. However, we need to assess how this claim is supported and what assumptions underpin it."
+  },
+  {
+    "slide": 11,
+    "topic": "Naive Documentation",
+    "text": "In our example, the naive documentation simply states that 'the system checks asset status before publishing.' This documentation is insufficient as it fails to outline the invariant, the specific command used, the log outputs, or what failure might look like if something goes wrong during publishing."
+  },
+  {
+    "slide": 12,
+    "topic": "Failure Scenario",
+    "text": "Let's consider a failure scenario. Imagine a concurrent test begins processing a transcript while simultaneously attempting to publish it. In this case, the publish command might observe a stale state and proceed to publishing prematurely. The packet should encapsulate the assumption that the data reads are current, and then show how that assumption failed."
+  },
+  {
+    "slide": 13,
+    "topic": "Assumption Contradicted",
+    "text": "The key assumption here, that reads will remain current, is contradicted in our failure scenario. This discrepancy can lead to significant issues in concurrent systems, underscoring why we must track our assumptions throughout the design process."
+  },
+  {
+    "slide": 14,
+    "topic": "Improved Integrity Packet Entry",
+    "text": "To improve, we need to create a more robust Integrity Packet entry. For example, we recommend using an atomic readiness check before transitioning an episode to the published state. This ensures that all assets are confirmed and ready before publishing occurs. Let's also outline explicit assumptions, evidence, validation steps, and ownership to enhance our documentation."
+  },
+  {
+    "slide": 15,
+    "topic": "Recommendation",
+    "text": "Our recommendation is to employ an atomic readiness check right before transitioning the episode to a published state. This will help prevent premature publishing by ensuring that all necessary components are complete and validated."
+  },
+  {
+    "slide": 16,
+    "topic": "Assumptions",
+    "text": "Regarding assumptions, we must state clearly that publishing relies on several components: audio, transcript, artwork, and review approval. Moreover, both the readiness check and status transition must be treated as a single, atomic operation to ensure consistency."
+  },
+  {
+    "slide": 17,
+    "topic": "Evidence",
+    "text": "For our evidence, we should document the logs thoroughly. For example, one log might show a scenario where publishing succeeded while the transcript was still pending, which is problematic. In contrast, another log can demonstrate that publishing was correctly rejected until all assets were marked complete."
+  },
+  {
+    "slide": 18,
+    "topic": "Validation",
+    "text": "For validation, we need to run tests that reflect concurrent publishing scenarios. In our case, we executed a shell script designed for concurrent publish tests, engaging five workers in 100 repetitions. This rigorous approach confirmed that no invalid 'published' states occurred after we redesigned our processes."
+  },
+  {
+    "slide": 19,
+    "topic": "Ownership",
+    "text": "Ownership in this context means not only stating that someone can explain what went wrong during the failure modes but also detailing how the transitions were corrected. Each claim must be backed by someone who can validate the workings of the system."
+  },
+  {
+    "slide": 20,
+    "topic": "Failure Modes and Anti-Patterns",
+    "text": "Now, let's discuss some common failure modes and anti-patterns we might encounter. One symptom is when documentation lacks reasoning. This typically happens when documentation is regarded merely as a report rather than a rich audit trail. Detecting it is also straightforward: if there’s no record of attempts or revisions, we know there’s an issue."
+  },
+  {
+    "slide": 21,
+    "topic": "Trade-Off Analysis",
+    "text": "In doing a trade-off analysis, we need to explore different approaches. For instance, minimal reflection may allow for fast documentation but lacks defensibility. On the other hand, having a structured Integrity Packet effectively connects our claims with evidence, although it requires discipline in maintaining it. Understanding these pros and cons is essential for making informed decisions in our practice."
+  },
+  {
+    "slide": 22,
+    "topic": "Practical Application",
+    "text": "As for practical application, I encourage each of you to start working on your individual integrity packet tomorrow. Within this packet, you’ll need to include sections for recommendations, assumptions, evidence, validation, ownership, and escalation processes. Remember to also log any AI usage and prepare to articulate your insights during discussions."
+  },
+  {
+    "slide": 23,
+    "topic": "Assignment Integration",
+    "text": "This lecture will support your upcoming assignments, specifically Assignment Zero, which focuses on project selection, environment setup, and your Integrity Packet. You will create an initial packet that will grow and adapt across subsequent assignments. It's crucial that your packet showcases reusability and is specifically tailored to your chosen domain."
+  },
+  {
+    "slide": 24,
+    "topic": "Validation and Interview Questions",
+    "text": "Before we wrap up, I want to pose a few validation and interview questions you might encounter. For instance, can you differentiate between a claim and evidence? Think about which assumptions in your projects are most likely to fail under concurrency. And consider how a reviewer would reproduce one of your validation steps—a crucial aspect of ensuring transparency."
+  },
+  {
+    "slide": 25,
+    "topic": "Summary",
+    "text": "To summarize, we’ve explored how correctness cannot just be assumed; it must be argued with solid evidence. The Integrity Packet provides a structured approach to connect assumptions, behaviors, validations, and evidence, emulating professional engineering practices where decisions need to be explainable, especially when systems fail."
+  },
+  {
+    "slide": 26,
+    "topic": "Further Reading",
+    "text": "For further reading, I recommend checking out the requirements for the Integrity Packet in Assignment Zero and looking at the shared Integrity Packet Template. These resources will help reinforce the concepts we've covered today and guide your work as you progress through the course."
+  }
+]

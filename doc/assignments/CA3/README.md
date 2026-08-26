@@ -23,6 +23,7 @@ Include an Integrity Packet with CA3. Record your observability claims, the metr
     - **Producer rate**: events emitted/sec
     - **Kafka consumer lag**: `kafka_consumergroup_lag{group="processor"}`
     - **DB inserts/sec**: count of writes per second
+    - **REST interface**: request rate, error rate, and latency for the required endpoint
 - Create a Grafana dashboard with at least three panels showing these metrics over time.
 
 **Deliverables:**
@@ -92,8 +93,9 @@ Include an Integrity Packet with CA3. Record your observability claims, the metr
 
 - **Screenshots**: centralized log view, Grafana panels, scaling commands/results
 - **Manifests/Configs**: HPA, NetworkPolicies, Secret definitions, TLS snippets
-- **Video**: resilience drill showing failure, recovery, and operator notes
+- **Video**: externally hosted resilience drill showing failure, recovery, and operator notes; submit its link as described in the [assignment submission instructions](../README.md#submission-instructions)
 - **README.md**: updated with observability setup, scaling instructions, security and resilience details
+- **REST Evidence**: endpoint request/response plus relevant logs, metrics, and failure-recovery behavior
 - **Integrity Packet**: claims, evidence, assumptions, AI critique, and open risks
 
 ---
@@ -101,13 +103,13 @@ Include an Integrity Packet with CA3. Record your observability claims, the metr
 
 ## How You Will Be Graded
 
-- **Observability & Logging** (25%)  
-  Quality of centralized log collection, metric instrumentation, and dashboard clarity.
+- **Observability & Logging** (20%)
+  Quality of centralized log collection, metric instrumentation, dashboard clarity, and visibility into the required REST endpoint.
 
-- **Autoscaling Configuration** (20%)  
+- **Autoscaling Configuration** (15%)
   Correct setup of HPA (or Swarm scaling) and demonstration under load/scale-down.
 
-- **Security Hardening** (20%)  
+- **Security Hardening** (15%)
   Proper use of Secrets, NetworkPolicies (or overlay networks), and TLS enablement.
 
 - **Resilience Drill & Recovery** (25%)  
@@ -115,3 +117,6 @@ Include an Integrity Packet with CA3. Record your observability claims, the metr
 
 - **Documentation & Usability** (10%)  
   Completeness of README, clarity of deploy/teardown commands, and ease of validation.
+
+- **Integrity Packet (CLO7)** (15%)
+  Clear operational claims, supporting metrics and logs, assumptions, failure-test validation, and documented verification of AI-assisted work.

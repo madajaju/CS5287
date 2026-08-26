@@ -5,11 +5,11 @@
 **Instructor:** Dr. Darren Pulsipher
 **Email:** [darren.pulsipher@vanderbilt.edu](mailto:darren.pulsipher@vanderbilt.edu)
 **Meeting Time:** Thursdays, 5:00–6:30 PM CT (Online via Zoom)
-**Semester:** Fall 2025
+**Semester:** Fall 2026
 
 ## **Course Description**
 
-This course provides an in-depth understanding of **cloud computing concepts, architectures, and technologies** through a combination of **pre-class recorded lectures**, **weekly discussions**, **hands-on cloud assignments**, and **research presentations**.
+This course provides an in-depth understanding of **cloud computing concepts, architectures, and technologies** through a combination of **pre-class recorded lectures**, **weekly discussions**, **hands-on cloud assignments**, and **technical presentations**.
 
 Students will explore cloud infrastructure, virtualization, containers, orchestration, cloud-native development, serverless computing, distributed data management, AI workloads, and next-generation networking.
 
@@ -75,14 +75,14 @@ Students should use it to:
 | 4 | Explain container isolation, image lifecycle, networking, and orchestration basics. |
 | 5 | Trace how Kubernetes schedules and connects workloads, including service mesh patterns. |
 | 6 | Apply load balancing, scheduling, and autoscaling to keep services responsive. |
-| 7 | Analyze tail latency and use SLI, SLO, and SLA concepts to define reliable operations. |
-| 8 | Use observability signals and chaos experiments to validate system resilience. |
+| 7 | Analyze tail latency and use observability signals, SLIs, SLOs, and SLAs to define reliable operations. |
+| 8 | Apply chaos-engineering principles and experiments to validate system resilience. |
 | 9 | Distinguish serverless and edge or fog models and match them to workload patterns. |
 | 10 | Compare distributed file systems and sharding strategies for multi-hybrid cloud storage. |
 | 11 | Understand batch and distributed data processing frameworks and when to use them. |
 | 12 | Evaluate GPU-based cloud execution, LLM serving, and agentic workflow patterns. |
 | 13 | Explain SDN, NFV, and 5G integration in modern cloud networking. |
-| 14 | Shape and present a final project plan with a clear problem, architecture, and milestones. |
+| 14 | Demonstrate and defend the completed final project using architecture, operational evidence, and lessons learned. |
 
 ## **Course Structure**
 
@@ -99,7 +99,7 @@ Each week follows this structure:
 
     * Quick recap and Q\&A
     * Breakout sessions for collaborative problem-solving
-    * Group presentations and discussion
+    * Individual student presentations and discussion
     * Feedback from the instructor and peers
 
 * **After Class:**
@@ -109,10 +109,9 @@ Each week follows this structure:
 
 ## **Required Tools & Resources**
 
-* **GitHub Repo:** [Assignments and Lecutres](https://github.com/madajaju/CS5287)
-* **Chameleon Cloud Account:** [Sign up](https://chameleoncloud.org/)
+* **GitHub Repo:** [Assignments and Lectures](https://github.com/madajaju/CS5287)
 * **Docker Desktop** or equivalent container runtime
-* **kubectl** and **Kubernetes cluster access** (provided via Chameleon Cloud)
+* **kubectl** and access to a Kubernetes cluster
 * Generative AI tool(s) of choice (ChatGPT, Claude, Gemini, etc.)
 
 ## **Use of Generative AI**
@@ -135,8 +134,8 @@ Generative AI is **required** in this course as a tool for:
 
 | Component                                                                                | Weight |
 |------------------------------------------------------------------------------------------| ------ |
-| Cloud [Assignments](../assignments/index.md) (CA0–CA3)                                   | 40%    |
-| [Final Cloud Project](../assignments/CA4/index.md) (CA4 - demo, presentation, and paper) | 25%    |
+| Cloud [Assignments](assignments/README.md) (CA0–CA3)                                   | 40%    |
+| [Final Cloud Project](assignments/CA4/README.md) (CA4—deployment, individual demo, and documentation) | 25% |
 | Weekly Participation (discussions, breakout work)                                        | 15%    |
 | Final Exam – Interview (Need to schedule)                                                | 20%    |
 
@@ -144,7 +143,7 @@ Generative AI is **required** in this course as a tool for:
 
 * If you miss class, you **lose participation points for that class**.
 * **No make-up participation** is available.
-* Participation includes contributing to **live discussions**, **breakout sessions**, and **group presentations** during class time.
+* Participation includes contributing to **live discussions**, **breakout sessions**, and **individual presentations** during class time.
 
 ## **Final Exam – Interview**
 
@@ -156,30 +155,32 @@ The final exam is a **one-on-one technical interview** with Dr. Darren on a topi
 
 ## **Weekly Topics & Assignments (Summary)**
 
-| Week | Topics                               | Assignments           |
-| ---- | ------------------------------------ |-----------------------|
-| 0    | Course intro, setup, Chameleon Cloud | Environment setup     |
-| 1    | Motivation, models, REST             | CA0                   |
-| 2    | Systems & networking refresher       | Submit CA0            |
-| 3    | Virtualization                       | CA1                   |
-| 4    | Containers                           | Submit CA1            |
-| 5    | Kubernetes & networking              | Preview CA2           |
-| 6    | Scaling & scheduling                 | Start CA2             |
-| 7    | Tail latencies                       | Continue CA2          |
-| 8    | Reliability & chaos engineering      | Submit CA2            |
-| 9    | Serverless & edge computing          | CA3                   |
-| 10   | Cloud storage                        | Continue CA3          |
-| 11   | Data processing frameworks           | Submit CA3, start CA4 |
-| 12   | AI in the cloud                      | Continue CA4          |
-| 13   | Networking innovations               | Continue CA4          |
-| 14   | Team presentations                   | Submit CA4            |
+| Week | Date | Topics | Assignments |
+| --- | --- | --- | --- |
+| 0 | Before Aug 27 | Course introduction, repository, and environment setup | Environment setup |
+| 1 | Aug 27 | Motivation, models, REST | Assign CA0 |
+| 2 | Sep 3 | Systems & networking refresher | Submit CA0 Sep 4 |
+| 3 | Sep 10 | Virtualization & infrastructure as code | Assign CA1 |
+| 4 | Sep 17 | Containers | Submit CA1 Sep 18 |
+| 5 | Sep 24 | Kubernetes & networking | Preview CA2 |
+| 6 | Oct 1 | Scaling & scheduling | Start CA2 |
+| 7 | Oct 8 | Observability, SRE & tail latency | Continue CA2 |
+| 8 | Oct 15 | Chaos engineering | Submit CA2 Oct 16 |
+| — | Oct 22 | **Fall break—no class** | — |
+| 9 | Oct 29 | Serverless & edge computing | Assign CA3 |
+| 10 | Nov 5 | Cloud storage | Submit CA3 Nov 6 |
+| 11 | Nov 12 | Data processing frameworks | Start CA4 |
+| 12 | Nov 19 | AI in the cloud | Continue CA4 |
+| — | Nov 26 | **Thanksgiving break—no class** | — |
+| 13 | Dec 3 | Networking innovations | Submit CA4 Dec 4 |
+| 14 | Dec 10 | Individual final project demonstrations | Present CA4 |
 
 **Note:** See the [Schedule](Schedule.md) tab for the full schedule and assignment dates.
 
 ## Assignments
 Assignments will take you through a journey of **learning, creating, coding, debugging, and presentation preparation**.
-It will walk you through the cloud ddeployment history and process startin with manual deployment to fully automated multi-cloud deployments.
-See the [Assignments](Assignments.md) tab for the full list of assignments.
+They walk you through the history and process of cloud deployment, starting with manual deployment and progressing to fully automated multi-cloud deployments.
+See the [Assignments](assignments/README.md) page for the full list of assignments.
 
 ## **Participation Expectations**
 
@@ -188,7 +189,7 @@ See the [Assignments](Assignments.md) tab for the full list of assignments.
 * Treat the provided **papers, videos, and tutorials as a starting point**, not the full scope of your learning.
 * Engage in breakout sessions and actively contribute to group findings.
 * Provide constructive feedback to peers.
-* Collaborate with your team on cloud assignments and the research project.
+* Discuss course concepts constructively with peers while completing and submitting all cloud assignments individually.
 
 ## Technology Recording Statement
 
@@ -210,9 +211,8 @@ available online at: http://www.vanderbilt.edu/student_handbook/the-honor-system
 pertinent material may be found at the Honor Council’s website,
 https://studentorg.vanderbilt.edu/honorcouncil/.
 Specific considerations for this course include:
-1. For individual assessments, the work should be your own. Absolutely no collaborations.
-   For team-based work, the work should be collaboration between team members but no
-   outside help from other team members. All team members must contribute equally
+1. All assessed work in this course is individual. Discussion during class and breakout activities is encouraged, but
+   every submitted design, implementation, Integrity Packet, demonstration, and presentation must be your own work.
 2. If you have questions or concerns about Honor Code issues in this class, please talk
    with me, your professor (Darren Pulsipher).
 
