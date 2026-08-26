@@ -1,37 +1,37 @@
 ## Assignment Due Dates
 
-| Assignment                     | Due (Friday, 11:59 PM CT) |
+| Assignment                     | Due (Sunday, 11:59 PM CT) |
 |--------------------------------|---------------------------|
-| CA0 – Manual Deployment        | Sep 4, 2026               |
-| CA1 – Infrastructure as Code   | Sep 18, 2026              |
-| CA2 – PaaS Orchestration       | Oct 16, 2026              |
-| CA3 – Cloud-Native Ops         | Nov 6, 2026               |
-| CA4 – Multi-Hybrid Cloud (Final)| Dec 4, 2026              |
+| CA0 – Manual Deployment        | Sep 6, 2026               |
+| CA1 – Infrastructure as Code   | Sep 20, 2026              |
+| CA2 – PaaS Orchestration       | Oct 18, 2026              |
+| CA3 – Cloud-Native Ops         | Nov 8, 2026               |
+| CA4 – Multi-Hybrid Cloud (Final)| Dec 6, 2026               |
 
 ## Fall 2026 Course Calendar
 
 Classes meet Thursdays at 5:00 PM Central Time (CT). Week 0 orientation is completed before the
 first class meeting.
 
-| Course Week | Date | Topics | Assignment Milestone |
-| --- | --- | --- | --- |
-| Week 0 | Before August 27 | Course introduction, repository, and environment setup | Environment setup |
-| Week 1 | August 27 | Cloud computing, cloud enablers, opportunities, and REST | Assign CA0 |
-| Week 2 | September 3 | Operating systems, networking, message brokers, and Kafka | Submit CA0 September 4 |
-| Week 3 | September 10 | Virtualization, IaaS, OpenStack, and infrastructure as code | Assign CA1 |
-| Week 4 | September 17 | Containers, container networking, Docker, and Docker Swarm | Submit CA1 September 18 |
+| Course Week | Date | Topics | Assignment Milestone                             |
+| --- | --- | --- |--------------------------------------------------|
+| Week 0 | Before August 27 | Course introduction, repository, and environment setup | Environment setup                                |
+| Week 1 | August 27 | Cloud computing, cloud enablers, opportunities, and REST | Assign CA0                                       |
+| Week 2 | September 3 | Operating systems, networking, message brokers, and Kafka | Submit CA0 September 6                           |
+| Week 3 | September 10 | Virtualization, IaaS, OpenStack, and infrastructure as code | Assign CA1                                       |
+| Week 4 | September 17 | Containers, container networking, Docker, and Docker Swarm | Submit CA1 September 20                          |
 | Week 5 | September 24 | Kubernetes architecture, networking, and service mesh | Preview CA2; on-campus convening September 25–26 |
-| Week 6 | October 1 | Cloud load balancing, Kubernetes scheduling, and scaling | Start CA2 |
-| Week 7 | October 8 | Observability, SRE components, and tail latency | Continue CA2 |
-| Week 8 | October 15 | Chaos engineering | Submit CA2 October 16 |
-| — | October 22 | **Fall break—no class** | — |
-| Week 9 | October 29 | Edge computing, overlay VPN, and serverless computing | Assign CA3 |
-| Week 10 | November 5 | Data partitioning and distributed file systems | Submit CA3 November 6 |
-| Week 11 | November 12 | MapReduce, Apache Spark, and Apache Ray | Start CA4 |
-| Week 12 | November 19 | GPU architectures, LLM serving, and agentic workflows | Continue CA4 |
-| — | November 26 | **Thanksgiving break—no class** | — |
-| Week 13 | December 3 | SDN, NFV, and 5G and beyond | Submit CA4 December 4 |
-| Week 14 | December 10 | Individual final project demonstrations and technical defense | Present CA4 |
+| Week 6 | October 1 | Cloud load balancing, Kubernetes scheduling, and scaling | Start CA2                                        |
+| Week 7 | October 8 | Observability, SRE components, and tail latency | Continue CA2                                     |
+| Week 8 | October 15 | Chaos engineering | Submit CA2 October 18                            |
+| — | October 22 | **Fall break—no class** | —                                                |
+| Week 9 | October 29 | Edge computing, overlay VPN, and serverless computing | Assign CA3                                       |
+| Week 10 | November 5 | Data partitioning and distributed file systems | Submit CA3 November 8                            |
+| Week 11 | November 12 | MapReduce, Apache Spark, and Apache Ray | Start CA4                                        |
+| Week 12 | November 19 | GPU architectures, LLM serving, and agentic workflows | Continue CA4                                     |
+| — | November 26 | **Thanksgiving break—no class** | —                                                |
+| Week 13 | December 3 | SDN, NFV, and 5G and beyond | Submit CA4 December 6                            |
+| Week 14 | December 10 | Individual final project demonstrations and technical defense | Present CA4                                      |
 
 
 ## Weekly Learning Objectives
