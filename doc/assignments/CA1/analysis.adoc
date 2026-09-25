@@ -1,0 +1,429 @@
+= CA1 Discussion: From Servers to Systems
+:backend: revealjs
+:revealjsdir: https://cdn.jsdelivr.net/npm/reveal.js@5
+:revealjs_theme: white
+:revealjs_transition: slide
+:revealjs_width: 1280
+:revealjs_height: 720
+:revealjs_slideNumber: true
+:icons: font
+:source-highlighter: highlight.js
+:customcss: custom.css
+
+== CA1 Was Not About Terraform
+
+=== It was about recreating a working system.
+
+[.notes]
+The biggest pattern I saw in the submissions was that many students equated Infrastructure as Code with creating machines.
+That is only the first step.
+CA1 was asking whether your CA0 environment could be recreated from code as a functioning system.
+
+== The Core Question
+
+=== If I destroy everything, can your code rebuild the system?
+
+Not just the VMs.
+
+Not just the network.
+
+The **working pipeline**.
+
+[.notes]
+The grading question was not, “Did you use Terraform?”
+The grading question was, “Can your automation recreate the operational state of your application?”
+
+== The Desired End State
+
+=== Deploy → Configure → Validate → Destroy
+
+[source,text]
+----
+Create infrastructure
+Configure services
+Start applications
+Produce event
+Broker receives event
+Processor consumes event
+Database stores result
+REST API returns result
+Destroy everything
+----
+
+[.notes]
+This is the mental model I want students to use.
+A CA1 submission should prove this chain.
+If any link is manual or undocumented, the automation is incomplete.
+
+== Teaching Point #1
+
+=== Naming a server is not configuring a service.
+
+[source,text]
+----
+SQL01     ≠ SQL Server installed and configured
+MAIL01    ≠ SMTP server installed and configured
+BROKER01  ≠ RabbitMQ or Kafka running
+----
+
+[.notes]
+This came up clearly in one submission.
+Creating an EC2 instance and naming it after a service is infrastructure provisioning.
+It does not prove that the intended service exists, is configured, or participates in the pipeline.
+
+== What Counts as Evidence?
+
+=== Claims need proof.
+
+[cols="1,1", options="header"]
+|===
+| Claim | Strong Evidence
+
+| Kafka is running
+| Topic exists, offsets change, broker logs, consumer proof
+
+| Processor works
+| Processor log shows exact event consumed and stored
+
+| Database works
+| Query returns the exact validation event
+
+| REST works
+| Endpoint returns expected response from stored data
+
+| Destroy works
+| Cloud resource scan shows no managed remnants
+|===
+
+[.notes]
+Screenshots can support evidence, but logs and repeatable validation scripts are stronger.
+A good submission does not just say the system works.
+It proves the claim with observable output.
+
+== Teaching Point #2
+
+=== Rebuildable is not the same as idempotent.
+
+**Rebuildable:**
+
+[source,text]
+----
+destroy → deploy → works
+----
+
+**Idempotent:**
+
+[source,text]
+----
+deploy → deploy again → no unnecessary changes
+----
+
+[.notes]
+Several students proved reproducibility well.
+Fewer proved idempotency.
+Destroying and rebuilding is valuable, but idempotency means the automation converges on desired state without recreating things that are already correct.
+
+== Example: Functional but Not Idempotent
+
+[source,yaml]
+----
+- name: Remove previous processor container
+  command: docker rm -f processor
+
+- name: Run processor container
+  command: docker run ...
+  changed_when: true
+----
+
+=== This works, but it changes the system every run.
+
+[.notes]
+This is not bad as a first version, but it is not fully idempotent.
+A better approach is to describe desired state declaratively with an Ansible Docker module.
+
+== Better Idempotency Evidence
+
+=== Run it twice.
+
+[source,text]
+----
+terraform plan
+# No changes. Infrastructure matches configuration.
+
+ansible-playbook site.yml
+# changed=0 failed=0
+----
+
+[.notes]
+This is the evidence I want students to produce.
+The second run should show that the system already matches the desired state.
+
+== Teaching Point #3
+
+=== Secret management is not optional.
+
+[.columns]
+****
+[.column]
+
+* *Do not commit*
+** passwords
+** API keys
+** private keys
+** tokens
+** database connection strings with credentials
+
+[.column]
+
+* *Use*
+** AWS Secrets Manager
+** Azure Key Vault
+** HashiCorp Vault
+** Ansible Vault
+** encrypted secret files
+****
+
+[.notes]
+Security groups are not secret management.
+Restricting access to a port is good, but credentials still need to be protected.
+
+== Strong Secret Pattern
+
+=== Separate the secret container from the secret value.
+
+[source,text]
+----
+Terraform creates:
+  - secret resource
+  - IAM permissions
+
+Runtime creates or retrieves:
+  - actual password value
+  - application credentials
+----
+
+[.notes]
+This avoids placing generated passwords directly in Terraform state.
+That is a more mature security design.
+
+== Teaching Point #4
+
+=== The validation script should be almost self-grading.
+
+[source,text]
+----
+PASS: REST accepted event ca1-1729
+PASS: Broker received event ca1-1729
+PASS: Processor consumed event ca1-1729
+PASS: Database contains event ca1-1729
+PASS: REST returned expected result ca1-1729
+----
+
+[.notes]
+A strong smoke test creates a unique event ID and traces it through every stage.
+The validation should not rely on vague evidence such as “there is data in the database.”
+
+== Weak Validation
+
+[source,text]
+----
+The database has records.
+The endpoint returned something.
+The screenshot shows the server is running.
+----
+
+=== Better: prove the exact event moved through the system.
+
+[.notes]
+The issue is not whether screenshots are allowed.
+The issue is whether the evidence connects to the claim.
+A random database record does not prove that the event produced by the test moved through the pipeline.
+
+== Teaching Point #5
+
+=== IaC should own the disposable environment.
+
+Strong:
+
+[source,text]
+----
+Create VPC
+Create subnet
+Create route table
+Create security groups
+Create compute
+Destroy all managed resources
+----
+
+Weaker:
+
+[source,text]
+----
+Use the default VPC
+Use an existing subnet
+Create only the VMs
+----
+
+[.notes]
+Using a default VPC can work, but it means part of the environment is outside the assignment lifecycle.
+The original rubric asked students to declare network and subnet in code.
+
+== Teaching Point #6
+
+=== Parameterization must cross tool boundaries.
+
+[source,text]
+----
+Terraform says: kafka_topic = "orders"
+Ansible says:   kafka_topic = "auth-events"
+Application says fallback = "old-ip-address"
+----
+
+=== That is configuration drift waiting to happen.
+
+[.notes]
+This appeared in several submissions.
+Parameters are only useful if the rest of the automation actually consumes them.
+Terraform outputs, generated Ansible variables, or a shared config file can solve this.
+
+== What a Strong README Does
+
+=== It lets someone else reproduce your work.
+
+[.columns]
+****
+[.column]
+* prerequisites and tool versions
+* credential setup
+* secret setup
+* deploy command
+* validation command
+
+[.column]
+* destroy command
+* expected outputs
+* known limitations
+* deviations from CA0
+****
+
+[.notes]
+A README is not just a description of what you built.
+It is the operating manual for reproducing the environment.
+
+== Integrity Packet: What I Was Looking For
+
+=== Claim → Evidence → Assumption → Validation → AI Review
+
+[source,text]
+----
+Claim:
+  The processor consumes Kafka events and writes to MongoDB.
+
+Evidence:
+  processor log shows request_id=ca1-1729 stored successfully.
+  MongoDB query returns request_id=ca1-1729.
+
+Assumption:
+  AWS credentials and vault password are provided by the operator.
+
+AI Review:
+  AI suggested the first Docker command.
+  I revised it after testing showed it recreated containers every run.
+----
+
+[.notes]
+The Integrity Packet is not an AI confession form.
+It is a verification packet.
+It should show how the student knows the automation claims are true.
+
+== Good AI Use
+
+=== AI can help generate code. You are still accountable.
+
+Strong submissions showed:
+
+* what AI helped with
+* what was reviewed
+* what was wrong
+* what was corrected
+* what test proved the correction
+
+[.notes]
+Using AI was not penalized.
+Unreviewed AI-generated infrastructure is the problem.
+The best submissions documented AI mistakes and how the student detected them.
+
+== Common Score Patterns
+
+[cols="1,1", options="header"]
+|===
+| Pattern | Likely Outcome
+
+| Complete lifecycle plus evidence
+| A range
+
+| Good infrastructure, weak app automation
+| Middle range
+
+| VMs only, no working pipeline proof
+| Low range
+
+| No secret management
+| Major deduction
+
+| No Integrity Packet
+| Zero for CLO7
+|===
+
+[.notes]
+This helps students understand why two projects with similar Terraform volume may score very differently.
+The rubric rewards a working, verified system—not just the amount of code.
+
+== The Maturity Ladder
+
+[source,text]
+----
+1. Manual deployment
+2. Scripted VM creation
+3. Infrastructure as Code
+4. Configuration as Code
+5. Validated system recreation
+6. Idempotent desired-state automation
+7. Evidence-backed automation claims
+----
+
+[.notes]
+CA1 is trying to move students up this ladder.
+Most students made progress.
+The goal is to understand what the next rung looks like.
+
+== What To Improve Next Time
+
+=== Turn claims into tests.
+
+[.columns]
+****
+[.column]
+* make the network disposable
+* centralize parameters
+* automate service installation
+* use a vault or secret manager
+
+[.column]
+* run the playbook twice
+* trace one unique event end-to-end
+* verify destroy with a resource scan
+****
+
+[.notes]
+This is the practical checklist I want students to take into the next assignment.
+
+== Final Takeaway
+
+=== The unit of automation is not the VM.
+
+=== The unit of automation is the desired operating state of the system.
+
+[.notes]
+This is the main lesson.
+If the code cannot recreate the working system, the automation is incomplete.

@@ -1,0 +1,566 @@
+= CA0 Class Evaluation
+:subtitle: What Worked, What Did Not, and What Good Looks Like
+:revealjs_theme: white
+:revealjs_transition: slide
+:revealjs_width: 1280
+:revealjs_height: 720
+:source-highlighter: highlight.js
+:icons: font
+:sectnums!:
+:customcss: custom.css
+
+== Overall Assessment
+
+CA0 produced a wide range of implementations, but several common patterns emerged.
+
+[%step]
+
+* Most students successfully learned the mechanics of provisioning cloud infrastructure.
+* Many submissions demonstrated a functioning end-to-end pipeline.
+* Architecture diagrams and documentation were generally strong.
+* Integrity Packets were often among the strongest parts of the submission.
+* The biggest differences between submissions were:
+** whether the required architecture actually worked,
+** whether security was *demonstrated* rather than merely described,
+** and whether someone else could reproduce the deployment.
+
+== The Core Lesson
+
+[quote]
+
+---
+
+A cloud system is not complete because the resources exist.
+
+It is complete when the system works, you can prove that it works, and someone else can understand how you built it.
+
+---
+
+[%step]
+
+* *Build it*
+* *Verify it*
+* *Capture evidence*
+* *Explain it*
+* *Make it reproducible*
+
+== What Worked: Cloud Execution
+
+Most submissions did a good job working directly with cloud infrastructure.
+
+[%step]
+
+* VPCs and subnets were created correctly.
+* EC2 instances were provisioned for different system roles.
+* Security Groups were created and applied.
+* Private and public addressing was understood.
+* Students became comfortable navigating AWS networking and compute.
+* Several students documented troubleshooting and corrected configuration errors themselves.
+
+=== This Matters
+
+CA0 was intended to expose the mechanics normally hidden behind automation.
+
+Many of you demonstrated that you now understand:
+
+[source,text]
+----
+Instance
+|
+Subnet
+|
+VPC
+|
+Security Group
+|
+Service
+|
+Application
+----
+
+That understanding will become important when we begin automating these deployments.
+
+== What Worked: End-to-End Systems
+
+The strongest submissions did more than install software.
+
+They demonstrated: Producer -> Message Broker -> Processor -> Database -> REST API
+
+[%step]
+
+* A producer actually generated data.
+* Kafka or an equivalent broker received it.
+* A processor consumed and transformed it.
+* The database persisted the result.
+* A REST request retrieved or controlled pipeline data.
+* Evidence connected the entire chain.
+
+== What Worked: Architecture Documentation
+
+Several network diagrams were excellent.
+
+The best diagrams communicated more than VM placement.
+
+[%step]
+
+* VPC CIDR
+* Subnet CIDR
+* VM roles
+* Private IP addresses
+* Ports
+* Direction of communication
+* Security boundaries
+* Internet-facing versus internal services
+* Trust relationships
+
+=== A Good Diagram Answers Questions
+
+Someone looking at your diagram should quickly understand:
+
+[%step]
+
+* What can talk to what?
+* On which port?
+* Across which boundary?
+* Which systems are externally reachable?
+* Which systems are protected?
+* Where does the data flow?
+
+== What Worked: Integrity Packets
+
+The Integrity Packet was one of the strongest recurring areas.
+
+Good submissions clearly separated:
+
+[%step]
+
+* *Claims* — what you say the system does
+* *Evidence* — what proves the claim
+* *Assumptions* — what you believe to be true
+* *Validation* — how you tested it
+* *Limitations* — what still does not work
+* *AI Assistance* — where AI helped
+* *Human Verification* — what you personally checked
+
+=== Especially Good
+
+The strongest Integrity Packets did not say:
+
+[quote]
+
+---
+
+AI told me how to configure Kafka.
+
+---
+
+They said:
+
+[quote]
+
+---
+
+AI suggested this configuration. I implemented it, tested it, discovered this issue, modified the recommendation, and verified the result.
+
+---
+
+That is the behavior we are trying to develop.
+
+== What Did Not Work: Claims Without Evidence
+
+A recurring issue was a difference between what the README *said* and what the submitted evidence actually showed.
+
+For example:
+
+[%step]
+
+* README says ports are restricted.
+* Screenshot shows only part of the Security Group.
+* README says a network diagram exists.
+* Repository contains a differently named artifact.
+* README says a service starts automatically.
+* No reboot test demonstrates it.
+* README says the REST endpoint works.
+* No request/response evidence is shown.
+
+=== The Rule
+
+[quote]
+
+---
+
+Documentation tells me what you intended.
+
+Evidence tells me what actually happened.
+
+---
+
+For technical work, both matter.
+
+== What Did Not Work: Security Evidence
+
+Security was one of the most inconsistent areas.
+
+The assignment asked for basic controls:
+
+[%step]
+
+* SSH key authentication
+* No unnecessary inbound ports
+* Restricted service access
+* Non-root containers where supported
+
+=== Common Problems
+
+[%step]
+
+* An `All Traffic` rule was present without enough evidence explaining its source restriction.
+* Security Groups were described correctly but the final rule table was never shown.
+* Screenshots showed instance creation settings rather than the final deployed security configuration.
+* A README claimed SSH was key-only without evidence of the actual SSH configuration.
+* Security intent was confused with security verification.
+
+== Security: Better Evidence
+
+Instead of simply writing:
+
+Kafka is only available internally.
+
+Show evidence such as:
+
+9092   Source: sg-pipeline
+27017  Source: sg-pipeline
+22     Source: admin /32
+
+Then demonstrate that an unauthorized connection fails.
+
+[%step]
+
+* Configuration is evidence.
+* A successful authorized test is stronger evidence.
+* A failed unauthorized test is even stronger.
+
+== What Did Not Work: Reproducibility
+
+Many READMEs were very good descriptions of the finished environment.
+
+Fewer were true rebuild instructions.
+
+There is an important difference.
+
+=== Descriptive Documentation
+
+Kafka was installed on the broker VM.
+MongoDB was installed on the database VM.
+Docker was used for the processor.
+
+
+[source,bash]
+----
+sudo apt update
+sudo apt install ...
+docker compose up -d
+systemctl enable ...
+systemctl status ...
+----
+
+Along with:
+
+* versions,
+* configuration files,
+* environment variables,
+* ports,
+* startup behavior,
+* and validation commands.
+
+== The Reproducibility Test
+
+Ask yourself:
+
+[quote]
+
+---
+
+Could another student delete my entire environment and rebuild it from my repository?
+
+---
+
+If the answer is:
+
+[quote]
+
+---
+
+They would probably have to ask me a few things...
+
+---
+
+then the deployment is not fully reproducible yet.
+
+== What Did Not Work: Losing Sight of the Architecture
+
+One submission highlighted an important lesson.
+
+Creating cloud resources is not the same thing as satisfying the system requirements.
+
+CA0 was fundamentally about implementing:
+
+[source,text]
+----
+Producer
+->
+Broker
+->
+Processor
+->
+Database
+--------
+----
+
+plus a REST interface.
+
+[%step]
+
+* Different technologies were allowed.
+* Different cloud architectures were allowed.
+* Different operating systems were allowed.
+
+But the required *behaviors* still had to exist.
+
+=== Architecture Before Technology
+
+Do not begin with:
+
+[quote]
+
+---
+
+I want three EC2 instances.
+
+---
+
+Begin with:
+
+[quote]
+
+---
+
+I need a producer, broker, processor, database, and API.
+
+How should I deploy them?
+
+---
+
+That is architectural thinking.
+
+== What Did Not Work: Demo Videos
+
+Most demos showed useful evidence, but several ran longer than requested.
+
+The requirement was intentionally short.
+
+A good CA0 demo does not explain everything.
+
+It proves the critical path.
+
+=== A Better 90-Second Demo
+
+[source,text]
+----
+0:00  Show running services
+0:15  Start producer
+0:30  Show Kafka receives events
+0:45  Show processor consumes events
+1:00  Query database
+1:15  Call REST endpoint
+1:25  Show successful response
+1:30  Done
+----
+
+The README explains the system.
+
+The video proves it works.
+
+== Another Common Problem: Submission Cleanup
+
+A few otherwise strong submissions lost points for small finishing issues.
+
+[%step]
+
+* `TODO` values left in the README
+* Wrong filenames referenced
+* Missing screenshots
+* Old configuration values
+* Evidence from an earlier build
+* Architecture diagram and deployed environment not matching
+* Incomplete configuration tables
+
+=== Before You Submit
+
+Run one final search:
+
+[source,bash]
+----
+grep -R "TODO" .
+grep -R "FIXME" .
+----
+
+Then verify every file and link referenced by the README actually exists.
+
+== What Excellent Looked Like
+
+The strongest submissions combined several characteristics.
+
+[%step]
+. The architecture matched the assignment.
+. Every component actually ran.
+. Data moved end-to-end.
+. The REST API worked.
+. Network boundaries were intentional.
+. Security was both configured and demonstrated.
+. The diagram matched the deployed system.
+. Screenshots supported specific claims.
+. The README could rebuild the system.
+. The Integrity Packet explained how the student knew the claims were true.
+
+== A Better Engineering Workflow
+
+For future assignments, use this sequence.
+
+[source,text]
+----
+1. REQUIREMENTS
+   |
+2. ARCHITECTURE
+   |
+3. BUILD
+   |
+4. TEST
+   |
+5. VERIFY
+   |
+6. CAPTURE EVIDENCE
+   |
+7. DOCUMENT
+   |
+8. SUBMIT
+----
+
+---
+
+Do not wait until the end to gather evidence.
+
+Evidence should be generated as part of the engineering process.
+
+== Using AI Well
+
+AI was used extensively across the class.
+
+That is expected.
+
+The important distinction is how it was used.
+
+=== Weak Pattern
+
+[source,text]
+----
+Ask AI
+->
+Copy commands
+->
+Submit
+----
+
+=== Strong Pattern
+
+[source,text]
+----
+Ask AI
+->
+Understand recommendation
+->
+Implement
+->
+Test
+->
+Challenge result
+->
+Modify if necessary
+->
+Verify
+->
+Document
+----
+
+== AI Does Not Own the Claim
+
+If an AI system gives you a command that works, you still own the result.
+
+If it gives you a command that destroys your system, you also own the result.
+
+The Integrity Packet should make that ownership explicit.
+
+[quote]
+
+---
+
+AI can help generate a hypothesis.
+
+Engineering determines whether the hypothesis is true.
+
+---
+
+== What I Want You to Carry Forward
+
+CA0 was not really about Kafka.
+
+It was not really about MongoDB.
+
+It was not even primarily about AWS.
+
+CA0 was about understanding the relationship between:
+
+[%step]
+
+* architecture,
+* infrastructure,
+* software,
+* networking,
+* security,
+* evidence,
+* and operational reality.
+
+== The Standard Going Forward
+
+For the next assignments, think in four words:
+
+[.stretch]
+[source,text]
+----
+
+BUILD
+|
+VERIFY
+|
+EVIDENCE
+|
+EXPLAIN
+----
+
+If you can do all four, you are no longer simply deploying software.
+
+You are engineering a system.
+
+== Final Takeaway
+
+[quote]
+
+---
+
+Do not tell me your architecture works.
+
+Show me why you believe it works.
+
+---
+
+That mindset will matter far more than any individual cloud technology we use in this course.
